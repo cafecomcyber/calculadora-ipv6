@@ -29,12 +29,12 @@ export function HistoryView() {
 
   return (
     <div className="p-4 md:p-6 lg:p-8 max-w-2xl mx-auto">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl md:text-2xl font-bold text-foreground flex items-center gap-3">
-            <Clock className="w-5 h-5 text-primary" /> Histórico
+          <h1 className="text-lg font-semibold text-foreground flex items-center gap-2.5">
+            <Clock className="w-4 h-4 text-primary" /> Histórico
           </h1>
-          <p className="text-sm text-muted-foreground mt-1">Cálculos recentes · clique para restaurar</p>
+          <p className="text-xs text-muted-foreground mt-1">Cálculos recentes · clique para restaurar</p>
         </div>
         {history.length > 0 && (
           <Button variant="outline" size="sm" className="gap-2 text-destructive hover:text-destructive" onClick={() => { if (confirm('Apagar todo o histórico?')) { clearHistory(); toast.info('Histórico apagado'); } }}>
