@@ -31,12 +31,23 @@ export interface RDAPInfo {
   entities?: { name: string; roles: string[] }[];
 }
 
+export interface BlockValidation {
+  isAligned: boolean;
+  networkAddress: string;
+  inputAddress: string;
+  prefix: number;
+  message: string;
+  announcedPrefix?: string; // from BGP
+  prefixMismatch?: boolean;
+}
+
 export interface IPv6LookupResult {
   input: string;
   isValid: boolean;
   typeInfo: IPv6TypeInfo;
   bgpInfo?: BGPInfo;
   rdapInfo?: RDAPInfo;
+  validation?: BlockValidation;
   error?: string;
 }
 
@@ -192,11 +203,78 @@ export async function lookupBGP(ip: string): Promise<BGPInfo | null> {
   }
 }
 
+// Validate block alignment - checks if the address is properly aligned with the prefix
+export function validateBlock(input: string): BlockValidation {
+  try {
+    const parts = input.split('/');
+    const addr = parts[0];
+    const prefix = parts[1] ? parseInt(parts[1], 10) : -1;
+
+    if (!addr || prefix < 0 || prefix > 128) {
+      return { isAligned: false, networkAddress: '', inputAddress: input, prefix: 0, message: 'Formato CIDR inválido' };
+    }
+
+    const expanded = expandToFullForm(addr);
+    const ipBigInt = BigInt('0x' + expanded.replace(/:/g, ''));
+    
+    // Calculate network mask and apply
+    const mask = prefix === 0 ? 0n : ((1n << BigInt(prefix)) - 1n) << (128n - BigInt(prefix));
+    const networkBigInt = ipBigInt & mask;
+    
+    const isAligned = ipBigInt === networkBigInt;
+    
+    // Format network address
+    const networkHex = networkBigInt.toString(16).padStart(32, '0');
+    const networkGroups = networkHex.match(/.{1,4}/g)!.join(':');
+    
+    // Shorten for display
+    const shortenAddr = (full: string) => {
+      const groups = full.split(':').map(g => g.replace(/^0+/, '') || '0');
+      let bestStart = -1, bestLen = 0, curStart = -1, curLen = 0;
+      for (let i = 0; i < groups.length; i++) {
+        if (groups[i] === '0') { if (curStart === -1) { curStart = i; curLen = 1; } else curLen++; }
+        else { if (curLen > bestLen) { bestLen = curLen; bestStart = curStart; } curStart = -1; curLen = 0; }
+      }
+      if (curLen > bestLen) { bestLen = curLen; bestStart = curStart; }
+      if (bestLen < 2) return groups.join(':');
+      const pre = groups.slice(0, bestStart);
+      const suf = groups.slice(bestStart + bestLen);
+      if (!pre.length && !suf.length) return '::';
+      if (!pre.length) return '::' + suf.join(':');
+      if (!suf.length) return pre.join(':') + '::';
+      return pre.join(':') + '::' + suf.join(':');
+    };
+    
+    const networkShort = shortenAddr(networkGroups);
+    
+    if (!isAligned) {
+      return {
+        isAligned: false,
+        networkAddress: `${networkShort}/${prefix}`,
+        inputAddress: input,
+        prefix,
+        message: `O endereço não está alinhado com o prefixo /${prefix}. O endereço de rede correto seria ${networkShort}/${prefix}`,
+      };
+    }
+    
+    return {
+      isAligned: true,
+      networkAddress: `${networkShort}/${prefix}`,
+      inputAddress: input,
+      prefix,
+      message: 'Bloco válido e corretamente alinhado',
+    };
+  } catch {
+    return { isAligned: false, networkAddress: '', inputAddress: input, prefix: 0, message: 'Erro ao validar o bloco' };
+  }
+}
+
 // Lookup RDAP info
 export async function lookupRDAP(ip: string): Promise<RDAPInfo | null> {
   try {
-    const addr = ip.split('/')[0];
-    const res = await fetch(`https://rdap.org/ip/${encodeURIComponent(addr)}`, {
+    // Use CIDR notation if available, otherwise just the address
+    const cidr = ip.includes('/') ? ip : `${ip}/128`;
+    const res = await fetch(`https://rdap.org/ip/${encodeURIComponent(cidr)}`, {
       headers: { 'Accept': 'application/rdap+json' },
     });
     
@@ -244,10 +322,12 @@ export async function lookupRDAP(ip: string): Promise<RDAPInfo | null> {
 // Full lookup combining all sources
 export async function fullIPv6Lookup(input: string): Promise<IPv6LookupResult> {
   const typeInfo = classifyIPv6(input);
+  const validation = validateBlock(input);
   const result: IPv6LookupResult = {
     input,
-    isValid: true,
+    isValid: validation.isAligned,
     typeInfo,
+    validation,
   };
   
   // Only do network lookups for routable/global addresses
@@ -259,6 +339,16 @@ export async function fullIPv6Lookup(input: string): Promise<IPv6LookupResult> {
     
     result.bgpInfo = bgpInfo || undefined;
     result.rdapInfo = rdapInfo || undefined;
+    
+    // Check if BGP announced prefix differs from input prefix
+    if (bgpInfo?.prefix && validation.prefix) {
+      const bgpParts = bgpInfo.prefix.split('/');
+      const bgpPrefix = bgpParts[1] ? parseInt(bgpParts[1], 10) : 0;
+      if (bgpPrefix !== validation.prefix) {
+        validation.announcedPrefix = bgpInfo.prefix;
+        validation.prefixMismatch = true;
+      }
+    }
   }
   
   return result;
