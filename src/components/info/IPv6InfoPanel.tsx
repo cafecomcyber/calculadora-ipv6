@@ -104,12 +104,12 @@ export function IPv6InfoPanel({ open, onOpenChange, ipv6Address }: IPv6InfoPanel
 
           {/* No network data message */}
           {!loading && result && !result.bgpInfo && !result.rdapInfo && typeInfo.routable && typeInfo.type !== 'Documentação' && (
-            <div className="bg-secondary/30 rounded-lg p-3 text-center">
-              <AlertTriangle className="w-4 h-4 text-muted-foreground mx-auto mb-1" />
-              <p className="text-[11px] text-muted-foreground">
+            <div className="bg-secondary/30 rounded-lg p-4 text-center">
+              <AlertTriangle className="w-5 h-5 text-muted-foreground mx-auto mb-2" />
+              <p className="text-sm text-muted-foreground">
                 Não foi possível obter informações de rede para este bloco.
               </p>
-              <p className="text-[10px] text-muted-foreground mt-1">
+              <p className="text-xs text-muted-foreground mt-1">
                 O endereço pode não estar anunciado ou o limite da API foi atingido.
               </p>
             </div>
