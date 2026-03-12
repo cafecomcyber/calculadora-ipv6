@@ -232,7 +232,7 @@ export function PlannerView() {
               </div>
             ))}
           </div>
-          <Button variant="outline" className="w-full gap-2 border-dashed h-9 text-xs" onClick={addLevel}>
+          <Button variant="outline" className="w-full gap-2 border-dashed h-8 text-xs" onClick={addLevel}>
             <Plus className="w-3.5 h-3.5" /> Adicionar Nível
           </Button>
         </div>
