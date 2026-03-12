@@ -194,9 +194,9 @@ function BlockValidationCard({ validation }: { validation: BlockValidation }) {
         <p className="text-sm text-muted-foreground leading-relaxed">{validation.message}</p>
 
         {!validation.isAligned && validation.networkAddress && (
-          <div className="bg-secondary/40 rounded-md p-2">
-            <span className="text-[10px] text-muted-foreground block">Endereço de rede correto:</span>
-            <code className="text-[11px] font-mono text-primary">{validation.networkAddress}</code>
+          <div className="bg-secondary/40 rounded-md p-2.5">
+            <span className="text-xs text-muted-foreground block">Endereço de rede correto:</span>
+            <code className="text-sm font-mono text-primary">{validation.networkAddress}</code>
           </div>
         )}
 
