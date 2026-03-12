@@ -80,7 +80,7 @@ export function IPv6InfoPanel({ open, onOpenChange, ipv6Address }: IPv6InfoPanel
               className="flex items-center justify-center gap-2 py-8 text-muted-foreground"
             >
               <Loader2 className="w-4 h-4 animate-spin" />
-              <span className="text-xs">Consultando informações de rede...</span>
+              <span className="text-sm">Consultando informações de rede...</span>
             </motion.div>
           )}
 
