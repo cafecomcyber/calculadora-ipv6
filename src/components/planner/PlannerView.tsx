@@ -460,6 +460,6 @@ export function PlannerView() {
           )}
         </DialogContent>
       </Dialog>
-    </div>
+    </motion.div>
   );
 }
