@@ -174,9 +174,9 @@ export function CalculatorView() {
             </form>
           </motion.div>
 
-          {/* Step 2: Prefix Selection — clean grid */}
+          {/* Step 2: Prefix Selection — clean grid (hidden once subnets are generated) */}
           <AnimatePresence>
-            {ctx.currentStep >= 2 && ctx.mainBlock && (
+            {ctx.currentStep === 2 && ctx.mainBlock && (
               <motion.div {...fadeUp} className="bg-card rounded-xl border border-border p-5 md:p-6">
                 <h3 className="text-sm font-medium text-foreground mb-4">Escolha o prefixo para divisão:</h3>
                 <div className="grid grid-cols-8 sm:grid-cols-10 md:grid-cols-11 gap-1">
