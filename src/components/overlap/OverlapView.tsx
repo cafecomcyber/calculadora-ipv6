@@ -378,6 +378,6 @@ export function OverlapView() {
           )}
         </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   );
 }

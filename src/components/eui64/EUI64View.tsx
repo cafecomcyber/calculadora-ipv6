@@ -273,6 +273,6 @@ export function EUI64View() {
           )}
         </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -106,6 +106,6 @@ export function HistoryView() {
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+    </motion.div>
   );
 }

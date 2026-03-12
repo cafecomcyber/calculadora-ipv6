@@ -640,7 +640,7 @@ export function CalculatorView() {
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+    </motion.div>
   );
 }
 
