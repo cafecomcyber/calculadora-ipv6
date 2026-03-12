@@ -125,12 +125,12 @@ export function CalculatorView() {
   return (
     <div className="p-4 md:p-6 lg:p-8 max-w-[1400px] mx-auto">
       {/* Header with inline step indicator */}
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
+      <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
         <div>
-          <h1 className="text-lg font-semibold text-foreground tracking-tight">
+          <h1 className="text-xl font-semibold text-foreground tracking-tight">
             Calculadora de Sub-redes
           </h1>
-          <p className="text-xs text-muted-foreground mt-0.5">Divisão e gerenciamento de blocos IPv6</p>
+          <p className="text-sm text-muted-foreground mt-1">Divisão e gerenciamento de blocos IPv6</p>
         </div>
         <div className="w-full sm:w-auto sm:min-w-[320px]">
           <StepIndicator currentStep={ctx.currentStep} steps={STEPS} onStepClick={handleStepClick} />
@@ -142,7 +142,7 @@ export function CalculatorView() {
           {/* Step 1: Input */}
           <motion.div className="bg-card rounded-xl border border-border p-5 md:p-6" layout>
             <form onSubmit={handleCalcSubmit}>
-              <label className="block text-xs font-medium text-foreground mb-2.5">
+              <label className="block text-sm font-medium text-foreground mb-3">
                 Insira um endereço IPv6 no formato CIDR:
               </label>
               <div className="flex gap-3">
@@ -151,11 +151,11 @@ export function CalculatorView() {
                   onChange={e => ctx.setIpv6Input(e.target.value)}
                   placeholder="Ex.: 2001:db8::/41"
                   className={cn(
-                    "font-mono text-xs bg-secondary/60 border-border/60 flex-1 h-9",
+                    "font-mono text-sm bg-secondary/60 border-border/60 flex-1 h-11",
                     ctx.errorMessage && "animate-shake border-destructive"
                   )}
                 />
-                <Button type="submit" size="sm" className="gap-2 h-9 px-4 text-xs">
+                <Button type="submit" className="gap-2 h-11 px-5 text-sm">
                   <Calculator className="w-4 h-4" />
                   <span className="hidden sm:inline">Calcular</span>
                 </Button>
@@ -166,11 +166,11 @@ export function CalculatorView() {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
-                    className="mt-2.5 p-2.5 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-xs"
+                    className="mt-3 p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm"
                   >
                     <p>{ctx.errorMessage}</p>
                     {ctx.errorSuggestion && (
-                      <p className="text-xs mt-1 opacity-70">💡 {ctx.errorSuggestion}</p>
+                      <p className="text-sm mt-1 opacity-70">💡 {ctx.errorSuggestion}</p>
                     )}
                   </motion.div>
                 )}
@@ -182,7 +182,7 @@ export function CalculatorView() {
           <AnimatePresence>
             {ctx.currentStep === 2 && ctx.mainBlock && (
               <motion.div {...fadeUp} className="bg-card rounded-xl border border-border p-5 md:p-6">
-                <h3 className="text-xs font-medium text-foreground mb-3">Escolha o prefixo para divisão:</h3>
+                <h3 className="text-sm font-medium text-foreground mb-4">Escolha o prefixo para divisão:</h3>
                 <div className="grid grid-cols-8 sm:grid-cols-10 md:grid-cols-11 gap-1">
                   {Array.from({ length: 128 - ctx.mainBlock.prefix }, (_, i) => ctx.mainBlock!.prefix + 1 + i).map(prefix => {
                     const isCommon = COMMON_PREFIXES[prefix];
@@ -219,7 +219,7 @@ export function CalculatorView() {
             {ctx.isLoading && (
               <motion.div {...fadeUp} className="bg-card rounded-xl border border-border p-8 flex flex-col items-center gap-4">
                 <Loader2 className="w-7 h-7 animate-spin text-primary" />
-                <p className="text-xs text-muted-foreground">Gerando sub-redes ({ctx.loadingProgress}%)...</p>
+                <p className="text-sm text-muted-foreground">Gerando sub-redes ({ctx.loadingProgress}%)...</p>
                 <div className="w-full max-w-xs h-1.5 bg-secondary rounded-full overflow-hidden">
                   <motion.div
                     className="h-full bg-primary rounded-full"
@@ -237,8 +237,8 @@ export function CalculatorView() {
                 {/* Table header bar */}
                 <div className="px-4 py-3 border-b border-border/60 flex items-center justify-between flex-wrap gap-3">
                   <div className="flex items-center gap-2.5">
-                    <h3 className="text-sm font-medium text-foreground">Sub-redes</h3>
-                    <span className="px-2 py-0.5 rounded-full bg-primary/15 text-primary text-[11px] font-semibold tabular-nums">
+                    <h3 className="text-base font-medium text-foreground">Sub-redes</h3>
+                    <span className="px-2.5 py-0.5 rounded-full bg-primary/15 text-primary text-xs font-semibold tabular-nums">
                       {ctx.subRedesGeradas.length.toLocaleString('pt-BR')}
                     </span>
                     <Button
@@ -293,10 +293,10 @@ export function CalculatorView() {
 
                 {/* Table */}
                 <div className="overflow-x-auto max-h-[480px] overflow-y-auto">
-                  <table className="w-full text-xs">
+                  <table className="w-full text-sm">
                     <thead className="sticky top-0 bg-secondary/80 backdrop-blur-sm z-10">
                       <tr>
-                        <th className="p-2.5 w-10">
+                        <th className="p-3 w-10">
                           <input
                             type="checkbox"
                             checked={ctx.selectedIndices.size === ctx.subRedesGeradas.length && ctx.subRedesGeradas.length > 0}
@@ -304,10 +304,10 @@ export function CalculatorView() {
                             className="rounded"
                           />
                         </th>
-                         <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[11px]">Sub-rede</th>
-                         <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[11px]">Inicial</th>
-                         <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[11px]">Final</th>
-                         <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[11px]">Rede</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground uppercase tracking-wider text-xs">Sub-rede</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground uppercase tracking-wider text-xs">Inicial</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground uppercase tracking-wider text-xs">Final</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground uppercase tracking-wider text-xs">Rede</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-border/30">
@@ -326,7 +326,7 @@ export function CalculatorView() {
                             )}
                             onClick={() => ctx.selectIndividual(realIdx)}
                           >
-                            <td className="p-2.5" onClick={e => e.stopPropagation()}>
+                            <td className="p-3" onClick={e => e.stopPropagation()}>
                               <input
                                 type="checkbox"
                                 checked={isSelected}
@@ -334,10 +334,10 @@ export function CalculatorView() {
                                 className="rounded"
                               />
                             </td>
-                             <td className="p-2.5 font-mono text-xs text-primary">{shortenIPv6(subnet.subnet)}</td>
-                             <td className="p-2.5 font-mono text-xs text-foreground/80">{shortenIPv6(subnet.initial)}</td>
-                             <td className="p-2.5 font-mono text-xs text-foreground/80">{shortenIPv6(subnet.final)}</td>
-                             <td className="p-2.5 font-mono text-xs text-foreground/60">{shortenIPv6(subnet.network)}</td>
+                             <td className="p-3 font-mono text-sm text-primary">{shortenIPv6(subnet.subnet)}</td>
+                             <td className="p-3 font-mono text-sm text-foreground/80">{shortenIPv6(subnet.initial)}</td>
+                             <td className="p-3 font-mono text-sm text-foreground/80">{shortenIPv6(subnet.final)}</td>
+                             <td className="p-3 font-mono text-sm text-foreground/60">{shortenIPv6(subnet.network)}</td>
                           </tr>
                         );
                       })}
@@ -348,7 +348,7 @@ export function CalculatorView() {
                 {/* Load more */}
                 {!searchQuery && ctx.displayedCount < ctx.subRedesGeradas.length && (
                   <div className="p-3 border-t border-border/40 text-center">
-                    <Button variant="ghost" size="sm" onClick={ctx.loadMore} className="gap-2 text-xs text-muted-foreground hover:text-foreground">
+                    <Button variant="ghost" size="sm" onClick={ctx.loadMore} className="gap-2 text-sm text-muted-foreground hover:text-foreground">
                       <ChevronDown className="w-3.5 h-3.5" />
                       Carregar mais ({(ctx.subRedesGeradas.length - ctx.displayedCount).toLocaleString('pt-BR')} restantes)
                     </Button>
@@ -369,8 +369,8 @@ export function CalculatorView() {
                 transition={{ duration: 0.3 }}
                 className="bg-card rounded-xl border border-border p-5 sticky top-16"
               >
-                 <h3 className="text-xs font-medium flex items-center gap-2 mb-4">
-                   <Info className="w-3.5 h-3.5 text-primary" />
+                 <h3 className="text-sm font-medium flex items-center gap-2 mb-4">
+                   <Info className="w-4 h-4 text-primary" />
                    {ctx.individualSelectedIndex !== null ? (
                      <span className="text-[hsl(var(--success))]">Bloco Selecionado</span>
                    ) : (
@@ -427,13 +427,13 @@ export function CalculatorView() {
                     >
                       {ctx.aggregationResult.canAggregate ? (
                         <div>
-                          <h4 className="text-xs font-medium flex items-center gap-1.5 mb-3">
-                            <Layers className="w-3.5 h-3.5 text-primary" /> Bloco Agregado
+                          <h4 className="text-sm font-medium flex items-center gap-1.5 mb-3">
+                            <Layers className="w-4 h-4 text-primary" /> Bloco Agregado
                           </h4>
                           <div className="space-y-2">
                             <InfoRow label="CIDR" value={ctx.aggregationResult.aggregatedBlock!.subnet} onCopy={() => copyToClipboard(ctx.aggregationResult!.aggregatedBlock!.subnet)} />
                             <InfoRow label="Rede" value={ctx.aggregationResult.aggregatedBlock!.network} onCopy={() => copyToClipboard(ctx.aggregationResult!.aggregatedBlock!.network)} />
-                            <p className="text-xs text-muted-foreground">
+                            <p className="text-sm text-muted-foreground">
                               {ctx.aggregationResult.aggregatedBlock!.blockCount} blocos originais
                             </p>
                           </div>
@@ -459,8 +459,8 @@ export function CalculatorView() {
                         </div>
                       ) : ctx.comparisonResult ? (
                         <div>
-                          <h4 className="text-xs font-medium flex items-center gap-1.5 mb-3">
-                            <ArrowLeftRight className="w-3.5 h-3.5 text-primary" /> Comparação
+                          <h4 className="text-sm font-medium flex items-center gap-1.5 mb-3">
+                            <ArrowLeftRight className="w-4 h-4 text-primary" /> Comparação
                           </h4>
                           <ComparisonInfo result={ctx.comparisonResult} reason={ctx.aggregationResult.reason} />
                         </div>
@@ -468,8 +468,8 @@ export function CalculatorView() {
                         <div className="flex items-start gap-2 p-3 rounded-lg bg-[hsl(var(--warning))]/10 border border-[hsl(var(--warning))]/20 text-sm">
                           <TriangleAlert className="w-4 h-4 text-[hsl(var(--warning))] shrink-0 mt-0.5" />
                           <div>
-                            <p className="font-medium text-[hsl(var(--warning))] text-xs">Agregação não possível</p>
-                            <p className="text-xs text-muted-foreground mt-1">{ctx.aggregationResult.reason}</p>
+                            <p className="font-medium text-[hsl(var(--warning))] text-sm">Agregação não possível</p>
+                            <p className="text-sm text-muted-foreground mt-1">{ctx.aggregationResult.reason}</p>
                           </div>
                         </div>
                       )}
@@ -491,7 +491,7 @@ export function CalculatorView() {
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-3">
-            <p className="text-xs text-muted-foreground">Encontre a qual sub-rede um endereço IPv6 pertence.</p>
+            <p className="text-sm text-muted-foreground">Encontre a qual sub-rede um endereço IPv6 pertence.</p>
             <div className="flex gap-2">
               <Input
                 value={reverseSearchIp}
@@ -608,13 +608,13 @@ export function CalculatorView() {
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-3">
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <p className="text-sm text-muted-foreground leading-relaxed">
               O prefixo <code className="font-mono text-primary">/{confirmPrefix?.prefix}</code> gerará{' '}
               <span className="font-semibold text-foreground">{confirmPrefix?.count?.toLocaleString('pt-BR')}</span> sub-redes.
             </p>
-            <div className="flex items-start gap-2 p-2.5 rounded-lg bg-[hsl(var(--warning))]/10 border border-[hsl(var(--warning))]/20">
-              <Info className="w-3.5 h-3.5 text-[hsl(var(--warning))] shrink-0 mt-0.5" />
-              <p className="text-[11px] text-muted-foreground">
+            <div className="flex items-start gap-2 p-3 rounded-lg bg-[hsl(var(--warning))]/10 border border-[hsl(var(--warning))]/20">
+              <Info className="w-4 h-4 text-[hsl(var(--warning))] shrink-0 mt-0.5" />
+              <p className="text-xs text-muted-foreground">
                 Por questões de desempenho, apenas <span className="font-medium text-foreground">{IPV6_CONFIG.MAX_SUBNETS_GENERATION.toLocaleString('pt-BR')}</span> sub-redes serão geradas como amostra.
               </p>
             </div>
@@ -641,11 +641,11 @@ export function CalculatorView() {
 function InfoRow({ label, value, onCopy }: { label: string; value: string; onCopy: () => void }) {
   return (
     <div className="flex items-center justify-between gap-2 group">
-      <span className="text-[11px] text-muted-foreground shrink-0 uppercase tracking-wider font-medium">{label}</span>
+      <span className="text-xs text-muted-foreground shrink-0 uppercase tracking-wider font-medium">{label}</span>
       <div className="flex items-center gap-1.5 min-w-0">
-        <code className="text-xs font-mono text-foreground truncate">{value}</code>
+        <code className="text-sm font-mono text-foreground truncate">{value}</code>
         <button onClick={onCopy} className="p-1 rounded opacity-0 group-hover:opacity-100 hover:bg-primary/10 transition-all shrink-0">
-          <Copy className="w-3 h-3 text-muted-foreground hover:text-primary" />
+          <Copy className="w-3.5 h-3.5 text-muted-foreground hover:text-primary" />
         </button>
       </div>
     </div>
@@ -657,8 +657,8 @@ function IPList({ ips, onCopy, maxHeight = '400px' }: { ips: { ip: string; numbe
     <div className="overflow-y-auto space-y-px rounded-lg bg-secondary/30 p-1" style={{ maxHeight }}>
       {ips.map(item => (
         <div key={item.number} className="flex items-center gap-2 px-2.5 py-1.5 rounded hover:bg-secondary/60 group transition-colors">
-          <span className="text-[10px] text-muted-foreground w-7 text-right shrink-0 tabular-nums">{item.number}</span>
-          <code className="text-xs font-mono text-foreground/90 flex-1 truncate">{item.ip}</code>
+          <span className="text-xs text-muted-foreground w-7 text-right shrink-0 tabular-nums">{item.number}</span>
+          <code className="text-sm font-mono text-foreground/90 flex-1 truncate">{item.ip}</code>
           <button
             onClick={() => onCopy(item.ip)}
             className="p-0.5 rounded opacity-0 group-hover:opacity-100 hover:bg-primary/10 transition-all"
@@ -683,10 +683,10 @@ function ComparisonInfo({ result, reason }: { result: ComparisonResult; reason: 
 
   return (
     <div className="space-y-2">
-      <p className="text-xs text-foreground">{labels[result.relationship] || 'Relação desconhecida'}</p>
-      <div className="flex items-start gap-2 p-2.5 rounded-lg bg-[hsl(var(--warning))]/10 border border-[hsl(var(--warning))]/20">
-        <TriangleAlert className="w-3.5 h-3.5 text-[hsl(var(--warning))] shrink-0 mt-0.5" />
-        <p className="text-xs text-muted-foreground">{reason}</p>
+      <p className="text-sm text-foreground">{labels[result.relationship] || 'Relação desconhecida'}</p>
+      <div className="flex items-start gap-2 p-3 rounded-lg bg-[hsl(var(--warning))]/10 border border-[hsl(var(--warning))]/20">
+        <TriangleAlert className="w-4 h-4 text-[hsl(var(--warning))] shrink-0 mt-0.5" />
+        <p className="text-sm text-muted-foreground">{reason}</p>
       </div>
     </div>
   );
