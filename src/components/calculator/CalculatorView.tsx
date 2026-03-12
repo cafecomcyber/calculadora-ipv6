@@ -235,9 +235,8 @@ export function CalculatorView() {
                       variant="ghost"
                       className="text-xs gap-1.5 h-7 text-muted-foreground hover:text-primary"
                       onClick={() => {
-                        const savedInput = ctx.ipv6Input;
-                        ctx.resetCalculadora();
-                        setTimeout(() => ctx.setIpv6Input(savedInput), 0);
+                        // Go back to step 2 (prefix selection) keeping the block
+                        handleStepClick(2);
                       }}
                     >
                       <RotateCcw className="w-3 h-3" />
