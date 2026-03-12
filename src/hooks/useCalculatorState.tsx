@@ -538,7 +538,7 @@ export function CalculatorProvider({ children }: { children: React.ReactNode }) 
 
         setState(s2 => ({ ...s2, isLoading: true, loadingProgress: 0, selectedSubnetPrefix: entry.prefix }));
 
-        generateTimerRef.current = window.setTimeout(() => {
+        generateTimerRef.current = setTimeout(() => {
           try {
             const subnets = generateSubnets(ipv6BigInt, initialMask, entry.prefix, numSubRedes);
             setState(s3 => ({
