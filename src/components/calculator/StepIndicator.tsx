@@ -43,7 +43,7 @@ export function StepIndicator({ currentStep, steps, onStepClick }: StepIndicator
               </motion.div>
               <span
                 className={cn(
-                  "text-[11px] font-medium whitespace-nowrap hidden sm:block",
+                  "text-sm font-medium whitespace-nowrap hidden sm:block",
                   isActive ? "text-primary" : isCompleted ? "text-foreground/80" : "text-muted-foreground"
                 )}
               >

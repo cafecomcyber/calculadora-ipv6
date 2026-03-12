@@ -369,8 +369,8 @@ export function CalculatorView() {
                 transition={{ duration: 0.3 }}
                 className="bg-card rounded-xl border border-border p-5 sticky top-16"
               >
-                 <h3 className="text-xs font-medium flex items-center gap-2 mb-4">
-                   <Info className="w-3.5 h-3.5 text-primary" />
+                 <h3 className="text-sm font-medium flex items-center gap-2 mb-4">
+                   <Info className="w-4 h-4 text-primary" />
                    {ctx.individualSelectedIndex !== null ? (
                      <span className="text-[hsl(var(--success))]">Bloco Selecionado</span>
                    ) : (
