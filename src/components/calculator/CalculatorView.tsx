@@ -596,7 +596,7 @@ export function CalculatorView() {
 function InfoRow({ label, value, onCopy }: { label: string; value: string; onCopy: () => void }) {
   return (
     <div className="flex items-center justify-between gap-2 group">
-      <span className="text-[11px] text-muted-foreground shrink-0 uppercase tracking-wider">{label}</span>
+      <span className="text-[11px] text-muted-foreground shrink-0 uppercase tracking-wider font-medium">{label}</span>
       <div className="flex items-center gap-1.5 min-w-0">
         <code className="text-xs font-mono text-foreground truncate">{value}</code>
         <button onClick={onCopy} className="p-1 rounded opacity-0 group-hover:opacity-100 hover:bg-primary/10 transition-all shrink-0">

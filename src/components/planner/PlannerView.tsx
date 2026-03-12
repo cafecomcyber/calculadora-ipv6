@@ -340,12 +340,12 @@ export function PlannerView() {
                 <table className="w-full text-xs">
                   <thead className="bg-secondary/60">
                     <tr>
-                      <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[10px]">Nível</th>
-                      <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[10px]">Prefixo</th>
-                      <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[10px]">Bits</th>
-                      <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[10px]">Filhos/pai</th>
-                      <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[10px]">Total</th>
-                      <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[10px]">End./bloco</th>
+                       <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[11px]">Nível</th>
+                       <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[11px]">Prefixo</th>
+                       <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[11px]">Bits</th>
+                       <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[11px]">Filhos/pai</th>
+                       <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[11px]">Total</th>
+                       <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[11px]">End./bloco</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border/30">

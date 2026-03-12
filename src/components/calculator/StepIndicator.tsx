@@ -33,7 +33,7 @@ export function StepIndicator({ currentStep, steps, onStepClick }: StepIndicator
                 className={cn(
                   "w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold transition-all duration-300 shrink-0",
                   isCompleted && "bg-primary text-primary-foreground",
-                  isActive && "bg-primary text-primary-foreground shadow-md shadow-primary/25",
+                  isActive && "bg-primary text-primary-foreground shadow-sm shadow-primary/25",
                   !isActive && !isCompleted && "bg-muted text-muted-foreground"
                 )}
                 animate={isActive ? { scale: [1, 1.08, 1] } : {}}

@@ -62,7 +62,7 @@ export function HistoryView() {
                 className="bg-card rounded-xl border border-border/60 p-4 cursor-pointer hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group flex items-center justify-between"
               >
                 <div>
-                  <code className="text-sm font-semibold text-primary font-mono">{entry.block}</code>
+                  <code className="text-xs font-semibold text-primary font-mono">{entry.block}</code>
                   <p className="text-xs text-muted-foreground mt-1">
                     → /{entry.prefix}
                     {entry.subnetCount > 0 && `, ${entry.subnetCount.toLocaleString('pt-BR')} sub-redes`}
