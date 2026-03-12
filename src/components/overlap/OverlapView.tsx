@@ -62,39 +62,33 @@ const typeConfig: Record<string, { label: string; bgClass: string; borderClass: 
   },
 };
 
-function FindingRow({ finding, index }: { finding: OverlapFinding; index: number }) {
+function FindingRow({ finding }: { finding: OverlapFinding }) {
   const cfg = typeConfig[finding.type];
-  const Icon = cfg.icon;
 
   return (
-    <motion.div
-      className={cn("flex items-center gap-3 rounded-lg px-3.5 py-3 border transition-colors", cfg.bgClass, cfg.borderClass)}
-      initial={{ opacity: 0, x: -8 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: index * 0.03 }}
-    >
-      <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center shrink-0 bg-secondary", cfg.textClass)}>
-        <Icon className="w-4 h-4" />
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-0.5">
-          <span className={cn("text-[11px] font-semibold uppercase tracking-wider", cfg.textClass)}>{cfg.label}</span>
-          <span className="text-[11px] text-muted-foreground">— Linhas {finding.blockA.index} e {finding.blockB.index}</span>
-        </div>
-        <div className="flex items-center gap-2 flex-wrap">
-          <code className="text-sm font-mono font-medium text-foreground">{finding.blockA.network}/{finding.blockA.prefix}</code>
-          <span className="text-xs text-muted-foreground">↔</span>
-          <code className="text-sm font-mono font-medium text-foreground">{finding.blockB.network}/{finding.blockB.prefix}</code>
-        </div>
-      </div>
-      <button
-        onClick={() => copyToClipboard(`${finding.blockA.network}/${finding.blockA.prefix} ↔ ${finding.blockB.network}/${finding.blockB.prefix}`)}
-        className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors shrink-0"
-        title="Copiar"
-      >
-        <Copy className="w-3.5 h-3.5" />
-      </button>
-    </motion.div>
+    <tr className="border-b border-border/50 last:border-0 hover:bg-secondary/30 transition-colors">
+      <td className="py-2 px-3">
+        <span className={cn("text-[11px] font-semibold uppercase tracking-wider", cfg.textClass)}>{cfg.label}</span>
+      </td>
+      <td className="py-2 px-3 text-xs text-muted-foreground whitespace-nowrap">
+        {finding.blockA.index} ↔ {finding.blockB.index}
+      </td>
+      <td className="py-2 px-3">
+        <code className="text-xs font-mono text-foreground">{finding.blockA.network}/{finding.blockA.prefix}</code>
+      </td>
+      <td className="py-2 px-3">
+        <code className="text-xs font-mono text-foreground">{finding.blockB.network}/{finding.blockB.prefix}</code>
+      </td>
+      <td className="py-2 px-2">
+        <button
+          onClick={() => copyToClipboard(`${finding.blockA.network}/${finding.blockA.prefix} ↔ ${finding.blockB.network}/${finding.blockB.prefix}`)}
+          className="p-1 rounded text-muted-foreground hover:text-foreground transition-colors"
+          title="Copiar"
+        >
+          <Copy className="w-3 h-3" />
+        </button>
+      </td>
+    </tr>
   );
 }
 
