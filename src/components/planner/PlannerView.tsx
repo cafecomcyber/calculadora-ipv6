@@ -416,7 +416,7 @@ export function PlannerView() {
                 <code className="text-xs font-mono text-primary flex-1">{block.cidr}</code>
                 <span className="text-[10px] text-muted-foreground">{block.label}</span>
                 <button
-                  onClick={() => { navigator.clipboard.writeText(block.cidr); toast.success('Copiado!'); }}
+                  onClick={() => { navigator.clipboard.writeText(block.cidr).then(() => toast.success('Copiado!')).catch(() => toast.error('Erro ao copiar')); }}
                   className="p-1 rounded opacity-0 group-hover:opacity-100 hover:bg-primary/10 transition-all"
                 >
                   <Copy className="w-3 h-3 text-muted-foreground" />

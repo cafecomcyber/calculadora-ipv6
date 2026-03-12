@@ -79,7 +79,9 @@ export function CalculatorView() {
   };
 
   const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text).then(() => toast.success('Copiado!'));
+    navigator.clipboard.writeText(text)
+      .then(() => toast.success('Copiado!'))
+      .catch(() => toast.error('Erro ao copiar'));
   };
 
   const handleExport = (format: string) => {

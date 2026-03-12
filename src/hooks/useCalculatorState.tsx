@@ -100,7 +100,9 @@ function loadHistoryFromStorage(): HistoryEntry[] {
 function saveHistoryToStorage(history: HistoryEntry[]) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
-  } catch {}
+  } catch (e) {
+    console.warn('Não foi possível salvar o histórico no localStorage:', e);
+  }
 }
 
 export function CalculatorProvider({ children }: { children: React.ReactNode }) {

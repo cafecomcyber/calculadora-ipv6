@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { CalculatorProvider } from "@/hooks/useCalculatorState";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
 import Planner from "./pages/Planner";
 import History from "./pages/History";
@@ -15,18 +16,20 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Sonner />
-      <HashRouter>
-        <CalculatorProvider>
-          <AppLayout>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/planner" element={<Planner />} />
-              <Route path="/history" element={<History />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </AppLayout>
-        </CalculatorProvider>
-      </HashRouter>
+      <ErrorBoundary>
+        <HashRouter>
+          <CalculatorProvider>
+            <AppLayout>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/planner" element={<Planner />} />
+                <Route path="/history" element={<History />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </AppLayout>
+          </CalculatorProvider>
+        </HashRouter>
+      </ErrorBoundary>
     </TooltipProvider>
   </QueryClientProvider>
 );
