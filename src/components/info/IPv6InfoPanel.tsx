@@ -60,8 +60,8 @@ export function IPv6InfoPanel({ open, onOpenChange, ipv6Address }: IPv6InfoPanel
 
         <div className="space-y-4">
           {/* Address display */}
-          <div className="bg-secondary/50 rounded-lg p-3">
-            <code className="text-xs font-mono text-primary break-all">{ipv6Address}</code>
+          <div className="bg-secondary/50 rounded-lg p-3.5">
+            <code className="text-sm font-mono text-primary break-all">{ipv6Address}</code>
           </div>
 
           {/* Block Validation */}
