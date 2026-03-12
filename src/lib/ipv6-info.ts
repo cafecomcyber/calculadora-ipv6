@@ -52,7 +52,7 @@ const IPV6_TYPES: { test: (bigint: bigint) => boolean; info: IPv6TypeInfo }[] = 
   },
   {
     // ::ffff:0:0/96 - IPv4-mapped
-    test: (n) => (n >> 32n) === 0xffff_n,
+    test: (n) => (n >> 32n) === 0xffffn,
     info: { type: 'IPv4-Mapped', description: 'Endereço IPv6 mapeado de IPv4 (::ffff:x.x.x.x)', rfc: 'RFC 4291', scope: 'Global', routable: false, color: 'orange' },
   },
   {
