@@ -133,31 +133,31 @@ export function IPv6InfoPanel({ open, onOpenChange, ipv6Address }: IPv6InfoPanel
           {/* External links */}
           {typeInfo.routable && typeInfo.type !== 'Documentação' && (
             <div className="pt-2">
-              <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider mb-2">Links externos</p>
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">Links externos</p>
               <div className="flex flex-wrap gap-1.5">
                 <a
                   href={`https://bgp.tools/prefix/${ipv6Address}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-medium border border-border bg-secondary/40 text-muted-foreground hover:text-primary hover:border-primary/30 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border border-border bg-secondary/40 text-muted-foreground hover:text-primary hover:border-primary/30 transition-colors"
                 >
-                  <ExternalLink className="w-2.5 h-2.5" /> bgp.tools
+                  <ExternalLink className="w-3 h-3" /> bgp.tools
                 </a>
                 <a
                   href={`https://hackertarget.com/as-ip-lookup/?q=${encodeURIComponent(ipv6Address.split('/')[0])}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-medium border border-border bg-secondary/40 text-muted-foreground hover:text-primary hover:border-primary/30 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border border-border bg-secondary/40 text-muted-foreground hover:text-primary hover:border-primary/30 transition-colors"
                 >
-                  <ExternalLink className="w-2.5 h-2.5" /> HackerTarget
+                  <ExternalLink className="w-3 h-3" /> HackerTarget
                 </a>
                 <a
                   href={`https://who.is/whois-ip/ip-address/${encodeURIComponent(ipv6Address.split('/')[0])}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-medium border border-border bg-secondary/40 text-muted-foreground hover:text-primary hover:border-primary/30 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border border-border bg-secondary/40 text-muted-foreground hover:text-primary hover:border-primary/30 transition-colors"
                 >
-                  <ExternalLink className="w-2.5 h-2.5" /> WHOIS
+                  <ExternalLink className="w-3 h-3" /> WHOIS
                 </a>
               </div>
             </div>
