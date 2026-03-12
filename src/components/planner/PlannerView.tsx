@@ -417,7 +417,7 @@ export function PlannerView() {
                   key={`tab-${l.prefix}-${i}`}
                   onClick={() => { setModalLevelIndex(i); openBlocksModal(i); }}
                   className={cn(
-                    "px-2.5 py-1 rounded text-[11px] font-medium whitespace-nowrap transition-colors shrink-0",
+                    "px-3 py-1.5 rounded text-xs font-medium whitespace-nowrap transition-colors shrink-0",
                     i === modalLevelIndex ? "bg-primary text-primary-foreground" : "bg-secondary/60 text-muted-foreground hover:text-foreground"
                   )}
                 >
