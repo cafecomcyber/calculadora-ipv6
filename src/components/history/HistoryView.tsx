@@ -24,8 +24,8 @@ export function HistoryView() {
   const navigate = useNavigate();
   const [confirmClear, setConfirmClear] = useState(false);
 
-  const restoreEntry = (entry: { block: string; prefix: number }) => {
-    setIpv6Input(entry.block);
+  const restoreEntry = (entry: HistoryEntry) => {
+    restoreFromHistory(entry);
     navigate('/');
     toast.success('Cálculo restaurado');
   };
