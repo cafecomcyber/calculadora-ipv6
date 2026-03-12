@@ -44,10 +44,10 @@ export function HistoryView() {
       </div>
 
       {history.length === 0 ? (
-        <div className="bg-card rounded-xl border border-border p-16 text-center">
-          <Clock className="w-10 h-10 text-muted-foreground/30 mx-auto mb-4" />
-          <p className="text-sm text-muted-foreground">Nenhum cálculo no histórico ainda.</p>
-          <p className="text-xs text-muted-foreground/60 mt-2">Os cálculos aparecem aqui automaticamente.</p>
+        <div className="bg-card rounded-xl border border-border p-12 text-center">
+          <Clock className="w-8 h-8 text-muted-foreground/30 mx-auto mb-3" />
+          <p className="text-xs text-muted-foreground">Nenhum cálculo no histórico ainda.</p>
+          <p className="text-[11px] text-muted-foreground/60 mt-1.5">Os cálculos aparecem aqui automaticamente.</p>
         </div>
       ) : (
         <div className="space-y-2">
