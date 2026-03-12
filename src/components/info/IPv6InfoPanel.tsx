@@ -117,12 +117,12 @@ export function IPv6InfoPanel({ open, onOpenChange, ipv6Address }: IPv6InfoPanel
 
           {/* Not routable info */}
           {!loading && !typeInfo.routable && (
-            <div className="bg-secondary/30 rounded-lg p-3">
+            <div className="bg-secondary/30 rounded-lg p-4">
               <div className="flex items-start gap-2">
-                <Shield className="w-3.5 h-3.5 text-muted-foreground mt-0.5 shrink-0" />
+                <Shield className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-[11px] font-medium text-foreground">Endereço não roteável</p>
-                  <p className="text-[10px] text-muted-foreground mt-0.5">
+                  <p className="text-sm font-medium text-foreground">Endereço não roteável</p>
+                  <p className="text-xs text-muted-foreground mt-1">
                     Este tipo de endereço não é roteado na Internet pública, portanto informações de BGP/RDAP não estão disponíveis.
                   </p>
                 </div>
