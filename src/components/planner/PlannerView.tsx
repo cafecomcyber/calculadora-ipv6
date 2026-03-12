@@ -226,37 +226,37 @@ export function PlannerView() {
 
         {/* Levels */}
         <div className="p-4 md:p-5 border-b border-border/60">
-          <label className="block text-[11px] font-medium uppercase tracking-wider text-muted-foreground mb-2">Níveis</label>
-          <div className="space-y-2 mb-3">
+          <label className="block text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2.5">Níveis</label>
+          <div className="space-y-2.5 mb-3">
             {levels.map((level, i) => (
               <div key={level.id} className="flex items-center gap-2">
-                 <span className="w-5 h-5 rounded bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center shrink-0">
+                 <span className="w-6 h-6 rounded bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center shrink-0">
                    {i + 1}
                 </span>
                 <Input
                   value={level.label}
                   onChange={e => updateLevel(i, 'label', e.target.value)}
                   placeholder="Ex: Região"
-                  className="bg-secondary/60 flex-1 h-8 text-xs"
+                  className="bg-secondary/60 flex-1 h-9 text-sm"
                 />
-                <span className="text-muted-foreground font-bold text-xs">/</span>
+                <span className="text-muted-foreground font-bold text-sm">/</span>
                 <Input
                   type="number"
                   value={level.prefix}
                   onChange={e => updateLevel(i, 'prefix', e.target.value)}
                   placeholder="48"
-                  className="bg-secondary/60 w-20 font-mono text-center h-8 text-xs"
+                  className="bg-secondary/60 w-20 font-mono text-center h-9 text-sm"
                   min={1}
                   max={128}
                 />
-                <Button variant="ghost" size="icon" className="shrink-0 text-muted-foreground hover:text-destructive h-8 w-8" onClick={() => removeLevel(i)}>
-                  <X className="w-3.5 h-3.5" />
+                <Button variant="ghost" size="icon" className="shrink-0 text-muted-foreground hover:text-destructive h-9 w-9" onClick={() => removeLevel(i)}>
+                  <X className="w-4 h-4" />
                 </Button>
               </div>
             ))}
           </div>
-          <Button variant="outline" className="w-full gap-2 border-dashed h-8 text-xs" onClick={addLevel}>
-            <Plus className="w-3.5 h-3.5" /> Adicionar Nível
+          <Button variant="outline" className="w-full gap-2 border-dashed h-9 text-sm" onClick={addLevel}>
+            <Plus className="w-4 h-4" /> Adicionar Nível
           </Button>
         </div>
 
