@@ -286,17 +286,17 @@ export function PlannerView() {
               </h3>
               <div className="space-y-0">
                 {/* Base node */}
-                <div className="flex items-center gap-3 p-3 rounded-lg bg-secondary/50">
-                  <div className="w-7 h-7 rounded-lg bg-primary/20 flex items-center justify-center shrink-0">
-                    <Globe className="w-3.5 h-3.5 text-primary" />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-sm font-medium flex items-center gap-2">
-                      Bloco Base <code className="text-[11px] bg-primary/15 text-primary px-1.5 py-0.5 rounded font-mono">{base.address}/{base.prefix}</code>
-                    </div>
-                    <div className="text-[11px] text-muted-foreground">{formatBigInt(2n ** BigInt(128 - base.prefix))} endereços totais</div>
-                  </div>
-                </div>
+                 <div className="flex items-center gap-2.5 p-2.5 rounded-lg bg-secondary/50">
+                   <div className="w-6 h-6 rounded-md bg-primary/20 flex items-center justify-center shrink-0">
+                     <Globe className="w-3 h-3 text-primary" />
+                   </div>
+                   <div className="min-w-0">
+                     <div className="text-xs font-medium flex items-center gap-2">
+                       Bloco Base <code className="text-[11px] bg-primary/15 text-primary px-1.5 py-0.5 rounded font-mono">{base.address}/{base.prefix}</code>
+                     </div>
+                     <div className="text-[10px] text-muted-foreground">{formatBigInt(2n ** BigInt(128 - base.prefix))} endereços totais</div>
+                   </div>
+                 </div>
 
                 {results.map((level, i) => (
                   <div key={i}>
