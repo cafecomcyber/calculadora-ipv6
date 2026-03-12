@@ -13,10 +13,10 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Sonner />
-      <ErrorBoundary>
+  <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Sonner />
         <HashRouter>
           <CalculatorProvider>
             <AppLayout>
@@ -29,9 +29,9 @@ const App = () => (
             </AppLayout>
           </CalculatorProvider>
         </HashRouter>
-      </ErrorBoundary>
-    </TooltipProvider>
-  </QueryClientProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </ErrorBoundary>
 );
 
 export default App;
