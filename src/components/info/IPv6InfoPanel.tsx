@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 import {
   type IPv6LookupResult,
   type IPv6TypeInfo,
+  type BlockValidation,
   classifyIPv6,
   fullIPv6Lookup,
 } from '@/lib/ipv6-info';
