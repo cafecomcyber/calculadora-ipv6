@@ -4,8 +4,8 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  base: '/ipv6-helper/',
+export default defineConfig(({ mode } ) => ({
+  base: '/', // ALTERADO: Definido para a raiz do domínio
   server: {
     host: "::",
     port: 8080,
