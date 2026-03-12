@@ -112,9 +112,9 @@ export function AppSidebar() {
                 <SidebarMenuButton
                   onClick={() => setInfoPanelOpen(true)}
                   tooltip="Info do bloco"
-                  className="text-primary hover:bg-primary/10 transition-all duration-200 text-xs"
+                  className="text-primary hover:bg-primary/10 transition-all duration-200 text-sm"
                 >
-                  <Info className="w-3.5 h-3.5" />
+                  <Info className="w-4 h-4" />
                   <span>Info do Bloco</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
