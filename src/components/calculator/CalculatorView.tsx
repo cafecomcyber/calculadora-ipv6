@@ -38,6 +38,7 @@ export function CalculatorView() {
   const [exportTarget, setExportTarget] = useState<'main' | 'subnet' | 'aggregated'>('main');
   const [exportFilename, setExportFilename] = useState('ips_ipv6');
   const [subnetIpsModalOpen, setSubnetIpsModalOpen] = useState(false);
+  const [confirmPrefix, setConfirmPrefix] = useState<{ prefix: number; count: bigint } | null>(null);
 
   const filteredSubnets = useMemo((): { subnet: SubnetData; realIdx: number }[] => {
     if (!searchQuery) {
