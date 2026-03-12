@@ -226,7 +226,7 @@ export function PlannerView() {
                   min={1}
                   max={128}
                 />
-                <Button variant="ghost" size="icon" className="shrink-0 text-muted-foreground hover:text-destructive h-9 w-9" onClick={() => removeLevel(i)}>
+                <Button variant="ghost" size="icon" className="shrink-0 text-muted-foreground hover:text-destructive h-8 w-8" onClick={() => removeLevel(i)}>
                   <X className="w-3.5 h-3.5" />
                 </Button>
               </div>
