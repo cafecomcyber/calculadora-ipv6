@@ -490,6 +490,12 @@ export function CalculatorProvider({ children }: { children: React.ReactNode }) 
     setIpv6Input,
     calcularSubRedes,
     selecionarPrefixo,
+    getSubnetCount: useCallback((prefix: number) => {
+      if (!state.mainBlock) return null;
+      const prefixoNum = state.mainBlock.prefix;
+      if (prefix <= prefixoNum) return null;
+      return 1n << BigInt(prefix - prefixoNum);
+    }, [state.mainBlock]),
     resetCalculadora,
     goBackToStep,
     loadMore,
