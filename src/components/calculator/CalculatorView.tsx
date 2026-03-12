@@ -348,7 +348,7 @@ export function CalculatorView() {
                 {/* Load more */}
                 {!searchQuery && ctx.displayedCount < ctx.subRedesGeradas.length && (
                   <div className="p-3 border-t border-border/40 text-center">
-                    <Button variant="ghost" size="sm" onClick={ctx.loadMore} className="gap-2 text-xs text-muted-foreground hover:text-foreground">
+                    <Button variant="ghost" size="sm" onClick={ctx.loadMore} className="gap-2 text-sm text-muted-foreground hover:text-foreground">
                       <ChevronDown className="w-3.5 h-3.5" />
                       Carregar mais ({(ctx.subRedesGeradas.length - ctx.displayedCount).toLocaleString('pt-BR')} restantes)
                     </Button>
