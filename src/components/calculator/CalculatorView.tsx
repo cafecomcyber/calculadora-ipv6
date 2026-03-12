@@ -326,7 +326,7 @@ export function CalculatorView() {
                             )}
                             onClick={() => ctx.selectIndividual(realIdx)}
                           >
-                            <td className="p-2.5" onClick={e => e.stopPropagation()}>
+                            <td className="p-3" onClick={e => e.stopPropagation()}>
                               <input
                                 type="checkbox"
                                 checked={isSelected}
@@ -334,10 +334,10 @@ export function CalculatorView() {
                                 className="rounded"
                               />
                             </td>
-                             <td className="p-2.5 font-mono text-xs text-primary">{shortenIPv6(subnet.subnet)}</td>
-                             <td className="p-2.5 font-mono text-xs text-foreground/80">{shortenIPv6(subnet.initial)}</td>
-                             <td className="p-2.5 font-mono text-xs text-foreground/80">{shortenIPv6(subnet.final)}</td>
-                             <td className="p-2.5 font-mono text-xs text-foreground/60">{shortenIPv6(subnet.network)}</td>
+                             <td className="p-3 font-mono text-sm text-primary">{shortenIPv6(subnet.subnet)}</td>
+                             <td className="p-3 font-mono text-sm text-foreground/80">{shortenIPv6(subnet.initial)}</td>
+                             <td className="p-3 font-mono text-sm text-foreground/80">{shortenIPv6(subnet.final)}</td>
+                             <td className="p-3 font-mono text-sm text-foreground/60">{shortenIPv6(subnet.network)}</td>
                           </tr>
                         );
                       })}
