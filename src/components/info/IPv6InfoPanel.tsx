@@ -182,16 +182,16 @@ function BlockValidationCard({ validation }: { validation: BlockValidation }) {
         "px-3 py-2 border-b",
         validation.isAligned && !hasMismatch ? "border-emerald-500/20" : "border-destructive/20"
       )}>
-        <h3 className="text-[11px] font-medium flex items-center gap-1.5">
+        <h3 className="text-sm font-medium flex items-center gap-1.5">
           {validation.isAligned && !hasMismatch
-            ? <CheckCircle className="w-3 h-3 text-emerald-400" />
-            : <AlertTriangle className="w-3 h-3 text-destructive" />
+            ? <CheckCircle className="w-4 h-4 text-emerald-400" />
+            : <AlertTriangle className="w-4 h-4 text-destructive" />
           }
           Validação do Bloco
         </h3>
       </div>
-      <div className="p-3 space-y-2">
-        <p className="text-[11px] text-muted-foreground leading-relaxed">{validation.message}</p>
+      <div className="p-3.5 space-y-2.5">
+        <p className="text-sm text-muted-foreground leading-relaxed">{validation.message}</p>
 
         {!validation.isAligned && validation.networkAddress && (
           <div className="bg-secondary/40 rounded-md p-2">
