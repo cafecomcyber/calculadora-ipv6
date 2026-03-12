@@ -1,7 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Calculator, Network, Clock, RotateCcw, Globe } from 'lucide-react';
+import { Calculator, Network, Clock, RotateCcw, Globe, Sun, Moon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useCalculator } from '@/hooks/useCalculatorState';
+import { useTheme } from '@/hooks/useTheme';
 import {
   Sidebar,
   SidebarContent,
@@ -28,6 +29,7 @@ export function AppSidebar() {
   const { resetCalculadora } = useCalculator();
   const { state } = useSidebar();
   const collapsed = state === 'collapsed';
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <Sidebar collapsible="icon">
@@ -76,6 +78,16 @@ export function AppSidebar() {
 
       <SidebarFooter className="border-t border-sidebar-border">
         <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              onClick={toggleTheme}
+              tooltip={theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              <span>{theme === 'dark' ? 'Modo Claro' : 'Modo Escuro'}</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
               onClick={resetCalculadora}

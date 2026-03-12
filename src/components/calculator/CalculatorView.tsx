@@ -108,19 +108,29 @@ export function CalculatorView() {
     ? `${shortenIPv6(ctx.sidebarBlock.network)}/${ctx.sidebarBlock.prefix}`
     : '';
 
+  const handleStepClick = (step: number) => {
+    if (step < ctx.currentStep) {
+      // Navigate back to that step
+      if (step === 1) {
+        ctx.resetCalculadora();
+      }
+      // Step 2 is automatic when mainBlock exists
+    }
+  };
+
   return (
     <div className="p-4 md:p-6 lg:p-8 max-w-[1400px] mx-auto">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-xl md:text-2xl font-bold text-foreground tracking-tight">
-          Calculadora de Sub-redes
-        </h1>
-        <p className="text-sm text-muted-foreground mt-1">Divisão e gerenciamento de blocos IPv6</p>
-      </div>
-
-      {/* Step Indicator */}
-      <div className="bg-card/60 backdrop-blur-sm rounded-xl border border-border/60 p-4 mb-8">
-        <StepIndicator currentStep={ctx.currentStep} steps={STEPS} />
+      {/* Header with inline step indicator */}
+      <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
+        <div>
+          <h1 className="text-xl md:text-2xl font-bold text-foreground tracking-tight">
+            Calculadora de Sub-redes
+          </h1>
+          <p className="text-sm text-muted-foreground mt-0.5">Divisão e gerenciamento de blocos IPv6</p>
+        </div>
+        <div className="w-full sm:w-auto sm:min-w-[320px]">
+          <StepIndicator currentStep={ctx.currentStep} steps={STEPS} onStepClick={handleStepClick} />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8">
@@ -492,14 +502,14 @@ export function CalculatorView() {
 
       {/* Subnet IPs Dialog */}
       <Dialog open={subnetIpsModalOpen && ctx.subnetIpsVisible && !!ctx.subnetIpsBlock} onOpenChange={(open) => { if (!open) { setSubnetIpsModalOpen(false); ctx.resetSubnetIps(); } }}>
-        <DialogContent className="bg-card border-border max-w-lg max-h-[80vh] flex flex-col">
-          <DialogHeader>
+        <DialogContent className="bg-card border-border max-w-lg flex flex-col" style={{ maxHeight: '80vh' }}>
+          <DialogHeader className="shrink-0">
             <DialogTitle className="flex items-center gap-2 text-sm">
               <List className="w-4 h-4 text-primary" />
               IPs da Sub-rede: <code className="text-primary text-xs font-mono">{ctx.subnetIpsBlock ? shortenIPv6(ctx.subnetIpsBlock.subnet) : ''}</code>
             </DialogTitle>
           </DialogHeader>
-          <div className="flex items-center gap-2 pb-2">
+          <div className="flex items-center gap-2 pb-2 shrink-0">
             <Button size="sm" variant="outline" onClick={ctx.generateMoreSubnetIps} className="gap-1 text-xs h-7">
               <Plus className="w-3 h-3" /> +50
             </Button>
@@ -511,8 +521,19 @@ export function CalculatorView() {
             </Button>
             <span className="text-[11px] text-muted-foreground ml-auto tabular-nums">{ctx.subnetIps.length} IPs</span>
           </div>
-          <div className="flex-1 min-h-0 overflow-hidden">
-            <IPList ips={ctx.subnetIps} onCopy={copyToClipboard} maxHeight="100%" />
+          <div className="flex-1 min-h-0 overflow-y-auto rounded-lg bg-secondary/30 p-1">
+            {ctx.subnetIps.map(item => (
+              <div key={item.number} className="flex items-center gap-2 px-2.5 py-1.5 rounded hover:bg-secondary/60 group transition-colors">
+                <span className="text-[10px] text-muted-foreground w-7 text-right shrink-0 tabular-nums">{item.number}</span>
+                <code className="text-xs font-mono text-foreground/90 flex-1 truncate">{item.ip}</code>
+                <button
+                  onClick={() => copyToClipboard(item.ip)}
+                  className="p-0.5 rounded opacity-0 group-hover:opacity-100 hover:bg-primary/10 transition-all"
+                >
+                  <Copy className="w-3 h-3 text-muted-foreground" />
+                </button>
+              </div>
+            ))}
           </div>
         </DialogContent>
       </Dialog>
