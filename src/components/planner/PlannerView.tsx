@@ -197,7 +197,7 @@ export function PlannerView() {
             value={baseBlock}
             onChange={e => setBaseBlock(e.target.value)}
             placeholder="Ex.: 2001:db8::/32"
-            className="font-mono bg-secondary/60 h-10"
+            className="font-mono text-xs bg-secondary/60 h-9"
           />
         </div>
 
