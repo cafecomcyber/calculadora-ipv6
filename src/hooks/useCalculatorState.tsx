@@ -57,7 +57,8 @@ interface CalculatorState {
 interface CalculatorContextType extends CalculatorState {
   setIpv6Input: (val: string) => void;
   calcularSubRedes: () => boolean;
-  selecionarPrefixo: (prefix: number) => void;
+  selecionarPrefixo: (prefix: number, skipConfirm?: boolean) => void;
+  getSubnetCount: (prefix: number) => bigint | null;
   resetCalculadora: () => void;
   goBackToStep: (step: number) => void;
   loadMore: () => void;
@@ -186,7 +187,7 @@ export function CalculatorProvider({ children }: { children: React.ReactNode }) 
     return true;
   }, [state.ipv6Input]);
 
-  const selecionarPrefixo = useCallback((prefix: number) => {
+  const selecionarPrefixo = useCallback((prefix: number, skipConfirm?: boolean) => {
     if (!state.mainBlock) return;
 
     const { network: enderecoCompleto, prefix: prefixoNum } = state.mainBlock;
@@ -195,11 +196,9 @@ export function CalculatorProvider({ children }: { children: React.ReactNode }) 
     const ipv6BigInt = BigInt("0x" + enderecoCompleto.replace(/:/g, ''));
     const numSubRedes = 1n << BigInt(prefix - prefixoNum);
 
-    if (numSubRedes > 1000000n) {
-      const confirmacao = confirm(
-        `Atenção: Serão geradas ${numSubRedes.toString()} sub-redes. Por questões práticas, serão geradas apenas 100.000 como amostra. Continuar?`
-      );
-      if (!confirmacao) return;
+    if (numSubRedes > 1000000n && !skipConfirm) {
+      // Let the view handle confirmation
+      return;
     }
 
     // Capture values before setTimeout to avoid stale closure reads
@@ -491,6 +490,12 @@ export function CalculatorProvider({ children }: { children: React.ReactNode }) 
     setIpv6Input,
     calcularSubRedes,
     selecionarPrefixo,
+    getSubnetCount: useCallback((prefix: number) => {
+      if (!state.mainBlock) return null;
+      const prefixoNum = state.mainBlock.prefix;
+      if (prefix <= prefixoNum) return null;
+      return 1n << BigInt(prefix - prefixoNum);
+    }, [state.mainBlock]),
     resetCalculadora,
     goBackToStep,
     loadMore,

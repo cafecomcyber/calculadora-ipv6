@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Calculator, Network, Clock, RotateCcw, Globe, Sun, Moon } from 'lucide-react';
+import { Calculator, Network, Clock, RotateCcw, Globe, Sun, Moon, PanelLeftClose, PanelLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useCalculator } from '@/hooks/useCalculatorState';
 import { useTheme } from '@/hooks/useTheme';
@@ -27,29 +27,38 @@ export function AppSidebar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { resetCalculadora } = useCalculator();
-  const { state } = useSidebar();
+  const { state, toggleSidebar } = useSidebar();
   const collapsed = state === 'collapsed';
   const { theme, toggleTheme } = useTheme();
 
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="border-b border-sidebar-border">
-        <div className="flex items-center gap-3 px-2 py-2">
-          <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center shrink-0">
-            <Globe className="w-4 h-4 text-primary" />
+        <div className="flex items-center gap-2.5 px-2 py-2">
+          <div className="w-7 h-7 rounded-md bg-primary/20 flex items-center justify-center shrink-0">
+            <Globe className="w-3.5 h-3.5 text-primary" />
           </div>
           {!collapsed && (
-            <div className="overflow-hidden">
-              <h1 className="text-sm font-bold text-sidebar-foreground truncate">Calculadora IPv6</h1>
-              <p className="text-[10px] text-muted-foreground truncate">OPEN Datacenter</p>
-            </div>
+            <>
+              <div className="overflow-hidden flex-1 min-w-0">
+                <h1 className="text-xs font-semibold text-sidebar-foreground truncate">Calculadora IPv6</h1>
+                <p className="text-[10px] text-muted-foreground truncate leading-tight">OPEN Datacenter</p>
+              </div>
+              <button
+                onClick={toggleSidebar}
+                className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors shrink-0"
+                title="Recolher menu"
+              >
+                <PanelLeftClose className="w-3.5 h-3.5" />
+              </button>
+            </>
           )}
         </div>
       </SidebarHeader>
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Navegação</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-[10px]">Navegação</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navItems.map(item => {
@@ -61,11 +70,11 @@ export function AppSidebar() {
                       isActive={isActive}
                       tooltip={item.label}
                       className={cn(
-                        "transition-all duration-200",
-                        isActive && "bg-sidebar-primary text-sidebar-primary-foreground shadow-md shadow-primary/20"
+                        "transition-all duration-200 text-xs",
+                        isActive && "bg-sidebar-primary text-sidebar-primary-foreground shadow-sm shadow-primary/20"
                       )}
                     >
-                      <item.icon className="w-4 h-4" />
+                      <item.icon className="w-3.5 h-3.5" />
                       <span>{item.label}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -82,9 +91,9 @@ export function AppSidebar() {
             <SidebarMenuButton
               onClick={toggleTheme}
               tooltip={theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              className="text-muted-foreground hover:text-foreground transition-colors text-xs"
             >
-              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              {theme === 'dark' ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
               <span>{theme === 'dark' ? 'Modo Claro' : 'Modo Escuro'}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -92,9 +101,9 @@ export function AppSidebar() {
             <SidebarMenuButton
               onClick={resetCalculadora}
               tooltip="Limpar"
-              className="text-destructive hover:bg-destructive/10 transition-colors"
+              className="text-destructive hover:bg-destructive/10 transition-colors text-xs"
             >
-              <RotateCcw className="w-4 h-4" />
+              <RotateCcw className="w-3.5 h-3.5" />
               <span>Limpar</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
