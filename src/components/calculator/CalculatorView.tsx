@@ -237,8 +237,8 @@ export function CalculatorView() {
                 {/* Table header bar */}
                 <div className="px-4 py-3 border-b border-border/60 flex items-center justify-between flex-wrap gap-3">
                   <div className="flex items-center gap-2.5">
-                    <h3 className="text-sm font-medium text-foreground">Sub-redes</h3>
-                    <span className="px-2 py-0.5 rounded-full bg-primary/15 text-primary text-[11px] font-semibold tabular-nums">
+                    <h3 className="text-base font-medium text-foreground">Sub-redes</h3>
+                    <span className="px-2.5 py-0.5 rounded-full bg-primary/15 text-primary text-xs font-semibold tabular-nums">
                       {ctx.subRedesGeradas.length.toLocaleString('pt-BR')}
                     </span>
                     <Button
