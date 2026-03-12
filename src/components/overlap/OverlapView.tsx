@@ -286,10 +286,23 @@ export function OverlapView() {
                     </div>
                   </div>
 
-                  <div className="space-y-2 max-h-[450px] overflow-y-auto">
-                    {filteredFindings.map((finding, i) => (
-                      <FindingRow key={`${finding.blockA.index}-${finding.blockB.index}-${finding.type}`} finding={finding} index={i} />
-                    ))}
+                  <div className="max-h-[400px] overflow-y-auto">
+                    <table className="w-full text-left">
+                      <thead>
+                        <tr className="border-b border-border text-[11px] uppercase tracking-wider text-muted-foreground">
+                          <th className="py-2 px-3 font-medium">Tipo</th>
+                          <th className="py-2 px-3 font-medium">Linhas</th>
+                          <th className="py-2 px-3 font-medium">Bloco A</th>
+                          <th className="py-2 px-3 font-medium">Bloco B</th>
+                          <th className="py-2 px-2 w-8"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {filteredFindings.map((finding) => (
+                          <FindingRow key={`${finding.blockA.index}-${finding.blockB.index}-${finding.type}`} finding={finding} />
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
 
                   <div className="flex justify-end pt-1">
