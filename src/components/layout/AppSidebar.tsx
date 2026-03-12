@@ -90,11 +90,11 @@ export function AppSidebar() {
                         isActive={isActive}
                         tooltip={item.label}
                         className={cn(
-                          "transition-all duration-200 text-xs",
+                          "transition-all duration-200 text-sm",
                           isActive && "bg-sidebar-primary text-sidebar-primary-foreground shadow-sm shadow-primary/20"
                         )}
                       >
-                        <item.icon className="w-3.5 h-3.5" />
+                        <item.icon className="w-4 h-4" />
                         <span>{item.label}</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
