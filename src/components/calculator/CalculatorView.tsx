@@ -110,11 +110,11 @@ export function CalculatorView() {
 
   const handleStepClick = (step: number) => {
     if (step < ctx.currentStep) {
-      // Navigate back to that step
       if (step === 1) {
         ctx.resetCalculadora();
+      } else {
+        ctx.goBackToStep(step);
       }
-      // Step 2 is automatic when mainBlock exists
     }
   };
 
@@ -174,9 +174,9 @@ export function CalculatorView() {
             </form>
           </motion.div>
 
-          {/* Step 2: Prefix Selection — clean grid */}
+          {/* Step 2: Prefix Selection — clean grid (hidden once subnets are generated) */}
           <AnimatePresence>
-            {ctx.currentStep >= 2 && ctx.mainBlock && (
+            {ctx.currentStep === 2 && ctx.mainBlock && (
               <motion.div {...fadeUp} className="bg-card rounded-xl border border-border p-5 md:p-6">
                 <h3 className="text-sm font-medium text-foreground mb-4">Escolha o prefixo para divisão:</h3>
                 <div className="grid grid-cols-8 sm:grid-cols-10 md:grid-cols-11 gap-1">
@@ -230,6 +230,18 @@ export function CalculatorView() {
                     <span className="px-2 py-0.5 rounded-full bg-primary/15 text-primary text-[11px] font-semibold tabular-nums">
                       {ctx.subRedesGeradas.length.toLocaleString('pt-BR')}
                     </span>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="text-xs gap-1.5 h-7 text-muted-foreground hover:text-primary"
+                      onClick={() => {
+                        // Go back to step 2 (prefix selection) keeping the block
+                        handleStepClick(2);
+                      }}
+                    >
+                      <RotateCcw className="w-3 h-3" />
+                      Novo cálculo
+                    </Button>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <div className="relative">
