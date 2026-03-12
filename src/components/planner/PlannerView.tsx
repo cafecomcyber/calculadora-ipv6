@@ -449,8 +449,8 @@ export function PlannerView() {
           </div>
 
           {modalHasMore && (
-            <Button variant="outline" size="sm" onClick={loadMoreBlocks} className="gap-2 shrink-0">
-              <ChevronDown className="w-3.5 h-3.5" /> Ver mais {BV_PAGE} blocos
+            <Button variant="outline" size="sm" onClick={loadMoreBlocks} className="gap-2 shrink-0 text-sm">
+              <ChevronDown className="w-4 h-4" /> Ver mais {BV_PAGE} blocos
             </Button>
           )}
         </DialogContent>
