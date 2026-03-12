@@ -207,8 +207,8 @@ export function PlannerView() {
           <div className="space-y-2 mb-3">
             {levels.map((level, i) => (
               <div key={i} className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center shrink-0">
-                  {i + 1}
+                 <span className="w-5 h-5 rounded bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center shrink-0">
+                   {i + 1}
                 </span>
                 <Input
                   value={level.label}
