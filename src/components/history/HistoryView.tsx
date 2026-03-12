@@ -29,12 +29,12 @@ export function HistoryView() {
 
   return (
     <div className="p-4 md:p-6 lg:p-8 max-w-2xl mx-auto">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl md:text-2xl font-bold text-foreground flex items-center gap-3">
-            <Clock className="w-5 h-5 text-primary" /> Histórico
+          <h1 className="text-lg font-semibold text-foreground flex items-center gap-2.5">
+            <Clock className="w-4 h-4 text-primary" /> Histórico
           </h1>
-          <p className="text-sm text-muted-foreground mt-1">Cálculos recentes · clique para restaurar</p>
+          <p className="text-xs text-muted-foreground mt-1">Cálculos recentes · clique para restaurar</p>
         </div>
         {history.length > 0 && (
           <Button variant="outline" size="sm" className="gap-2 text-destructive hover:text-destructive" onClick={() => { if (confirm('Apagar todo o histórico?')) { clearHistory(); toast.info('Histórico apagado'); } }}>
@@ -44,10 +44,10 @@ export function HistoryView() {
       </div>
 
       {history.length === 0 ? (
-        <div className="bg-card rounded-xl border border-border p-16 text-center">
-          <Clock className="w-10 h-10 text-muted-foreground/30 mx-auto mb-4" />
-          <p className="text-sm text-muted-foreground">Nenhum cálculo no histórico ainda.</p>
-          <p className="text-xs text-muted-foreground/60 mt-2">Os cálculos aparecem aqui automaticamente.</p>
+        <div className="bg-card rounded-xl border border-border p-12 text-center">
+          <Clock className="w-8 h-8 text-muted-foreground/30 mx-auto mb-3" />
+          <p className="text-xs text-muted-foreground">Nenhum cálculo no histórico ainda.</p>
+          <p className="text-[11px] text-muted-foreground/60 mt-1.5">Os cálculos aparecem aqui automaticamente.</p>
         </div>
       ) : (
         <div className="space-y-2">
@@ -62,7 +62,7 @@ export function HistoryView() {
                 className="bg-card rounded-xl border border-border/60 p-4 cursor-pointer hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group flex items-center justify-between"
               >
                 <div>
-                  <code className="text-sm font-semibold text-primary font-mono">{entry.block}</code>
+                  <code className="text-xs font-semibold text-primary font-mono">{entry.block}</code>
                   <p className="text-xs text-muted-foreground mt-1">
                     → /{entry.prefix}
                     {entry.subnetCount > 0 && `, ${entry.subnetCount.toLocaleString('pt-BR')} sub-redes`}
