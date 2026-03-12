@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Cpu, Copy, RotateCcw, ArrowRight, Info, Globe, Link2, Fingerprint } from 'lucide-react';
+import { Cpu, Copy, RotateCcw, ArrowRight, Info, Globe, Link2, Fingerprint, Check, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { isValidMAC, isValidPrefix64, computeEUI64, type EUI64Result } from '@/lib/eui64-utils';
 
@@ -21,57 +21,73 @@ function copyToClipboard(text: string) {
   );
 }
 
-const EXAMPLE_MACS = [
-  { label: '00:1A:2B:3C:4D:5E', value: '00:1A:2B:3C:4D:5E' },
-  { label: 'AA:BB:CC:DD:EE:FF', value: 'AA:BB:CC:DD:EE:FF' },
-  { label: '02:42:AC:11:00:02', value: '02:42:AC:11:00:02' },
+const COMMON_PREFIXES = [
+  { label: '2001:db8::', desc: 'Documentação' },
+  { label: '2001:0db8:abcd::', desc: 'Exemplo' },
+  { label: 'fd00::', desc: 'ULA' },
 ];
 
-function ResultCard({ icon: Icon, label, value, fullValue, mono = true }: {
+function ResultRow({ icon: Icon, label, value, fullValue, highlight = false }: {
   icon: typeof Globe;
   label: string;
   value: string;
   fullValue?: string;
-  mono?: boolean;
+  highlight?: boolean;
 }) {
   const [showFull, setShowFull] = useState(false);
+  const [copied, setCopied] = useState(false);
   const displayed = showFull && fullValue ? fullValue : value;
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(displayed).then(() => {
+      setCopied(true);
+      toast.success('Copiado!');
+      setTimeout(() => setCopied(false), 1500);
+    });
+  };
+
   return (
-    <motion.div
-      className="bg-card border border-border rounded-xl p-4 space-y-2"
-      {...fadeUp}
-    >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-muted-foreground">
-          <Icon className="w-4 h-4 text-primary" />
-          <span className="text-xs font-medium uppercase tracking-wide">{label}</span>
-        </div>
-        <div className="flex items-center gap-1">
-          {fullValue && (
-            <button
-              onClick={() => setShowFull(!showFull)}
-              className="text-xs text-muted-foreground hover:text-foreground px-2 py-0.5 rounded hover:bg-secondary transition-colors"
-            >
-              {showFull ? 'Curto' : 'Completo'}
-            </button>
-          )}
-          <button
-            onClick={() => copyToClipboard(displayed)}
-            className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
-            title="Copiar"
-          >
-            <Copy className="w-3.5 h-3.5" />
-          </button>
-        </div>
-      </div>
-      <p className={cn(
-        "text-base font-semibold text-foreground break-all leading-relaxed",
-        mono && "font-mono"
+    <div className={cn(
+      "group flex items-center gap-3 rounded-lg px-3.5 py-3 transition-colors",
+      highlight
+        ? "bg-primary/8 border border-primary/20"
+        : "bg-secondary/40 border border-transparent hover:border-border"
+    )}>
+      <div className={cn(
+        "w-8 h-8 rounded-lg flex items-center justify-center shrink-0",
+        highlight ? "bg-primary/15 text-primary" : "bg-secondary text-muted-foreground"
       )}>
-        {displayed}
-      </p>
-    </motion.div>
+        <Icon className="w-4 h-4" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <span className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider">{label}</span>
+        <p className="text-sm font-mono font-semibold text-foreground truncate" title={displayed}>
+          {displayed}
+        </p>
+      </div>
+      <div className="flex items-center gap-1 shrink-0">
+        {fullValue && (
+          <button
+            onClick={() => setShowFull(!showFull)}
+            className="text-[10px] font-medium text-muted-foreground hover:text-foreground px-2 py-1 rounded-md hover:bg-secondary transition-colors hidden sm:block"
+          >
+            {showFull ? 'Curto' : 'Expandido'}
+          </button>
+        )}
+        <button
+          onClick={handleCopy}
+          className={cn(
+            "p-1.5 rounded-md transition-all",
+            copied
+              ? "text-primary bg-primary/10"
+              : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+          )}
+          title="Copiar"
+        >
+          {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+        </button>
+      </div>
+    </div>
   );
 }
 
@@ -80,6 +96,8 @@ export function EUI64View() {
   const [prefixInput, setPrefixInput] = useState('2001:db8::');
   const [result, setResult] = useState<EUI64Result | null>(null);
   const [error, setError] = useState('');
+
+  const macValid = macInput.trim() ? isValidMAC(macInput) : null;
 
   const handleCalculate = () => {
     setError('');
@@ -133,46 +151,74 @@ export function EUI64View() {
 
         {/* Input Card */}
         <motion.div
-          className="bg-card border border-border rounded-xl p-5 space-y-4"
+          className="bg-card border border-border rounded-xl p-5 space-y-5"
           {...fadeUp}
         >
-          {/* MAC Address */}
-          <div className="space-y-2">
-            <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-              Endereço MAC
-            </label>
-            <Input
-              value={macInput}
-              onChange={e => setMacInput(e.target.value)}
-              placeholder="00:1A:2B:3C:4D:5E"
-              className="h-11 text-sm font-mono bg-secondary/50 border-border"
-              onKeyDown={e => e.key === 'Enter' && handleCalculate()}
-            />
-            <div className="flex flex-wrap gap-1.5">
-              {EXAMPLE_MACS.map(ex => (
-                <button
-                  key={ex.value}
-                  onClick={() => setMacInput(ex.value)}
-                  className="text-xs px-2.5 py-1 rounded-md bg-secondary/80 text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors font-mono"
-                >
-                  {ex.label}
-                </button>
-              ))}
+          {/* Two-column grid for inputs */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* MAC Address */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide flex items-center gap-1.5">
+                Endereço MAC
+                {macValid === true && <Check className="w-3 h-3 text-primary" />}
+              </label>
+              <div className="relative">
+                <Input
+                  value={macInput}
+                  onChange={e => setMacInput(e.target.value)}
+                  placeholder="00:1A:2B:3C:4D:5E"
+                  className={cn(
+                    "h-11 text-sm font-mono bg-secondary/50 border-border pr-10",
+                    macValid === false && "border-destructive/50 focus-visible:ring-destructive/30"
+                  )}
+                  onKeyDown={e => e.key === 'Enter' && handleCalculate()}
+                />
+                {macInput && (
+                  <button
+                    onClick={() => setMacInput('')}
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 rounded text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <RotateCcw className="w-3 h-3" />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Prefix */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                Prefixo /64
+              </label>
+              <Input
+                value={prefixInput}
+                onChange={e => setPrefixInput(e.target.value)}
+                placeholder="2001:db8::"
+                className="h-11 text-sm font-mono bg-secondary/50 border-border"
+                onKeyDown={e => e.key === 'Enter' && handleCalculate()}
+              />
             </div>
           </div>
 
-          {/* Prefix */}
-          <div className="space-y-2">
-            <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-              Prefixo /64
-            </label>
-            <Input
-              value={prefixInput}
-              onChange={e => setPrefixInput(e.target.value)}
-              placeholder="2001:db8::"
-              className="h-11 text-sm font-mono bg-secondary/50 border-border"
-              onKeyDown={e => e.key === 'Enter' && handleCalculate()}
-            />
+          {/* Quick fills — integrated inline */}
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider mr-1">Exemplos:</span>
+            {[
+              { mac: '00:1A:2B:3C:4D:5E', prefix: '2001:db8::' },
+              { mac: 'AA:BB:CC:DD:EE:FF', prefix: '2001:db8::' },
+              { mac: '02:42:AC:11:00:02', prefix: 'fd00::' },
+            ].map((ex, i) => (
+              <button
+                key={i}
+                onClick={() => { setMacInput(ex.mac); setPrefixInput(ex.prefix); }}
+                className={cn(
+                  "inline-flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-lg transition-all",
+                  "bg-secondary/60 text-muted-foreground hover:text-foreground hover:bg-secondary border border-transparent hover:border-border"
+                )}
+              >
+                <Zap className="w-3 h-3 text-primary/60" />
+                <span className="font-mono">{ex.mac}</span>
+              </button>
+            ))}
           </div>
 
           {/* Error */}
@@ -191,7 +237,7 @@ export function EUI64View() {
           </AnimatePresence>
 
           {/* Actions */}
-          <div className="flex gap-2 pt-1">
+          <div className="flex gap-2">
             <Button onClick={handleCalculate} className="h-10 text-sm gap-2 flex-1 sm:flex-none">
               <ArrowRight className="w-4 h-4" /> Calcular
             </Button>
@@ -205,67 +251,60 @@ export function EUI64View() {
         <AnimatePresence>
           {result && (
             <motion.div
-              className="space-y-3"
+              className="space-y-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.35 }}
             >
-              <h2 className="text-sm font-semibold text-foreground flex items-center gap-2">
+              <div className="flex items-center gap-2 mb-3">
                 <Fingerprint className="w-4 h-4 text-primary" />
-                Resultados
-              </h2>
-
-              {/* MAC normalised */}
-              <div className="bg-secondary/50 border border-border rounded-lg px-4 py-2.5 flex items-center justify-between">
-                <div>
-                  <span className="text-xs text-muted-foreground">MAC normalizado</span>
-                  <p className="text-sm font-mono font-medium text-foreground">{result.macNormalised}</p>
-                </div>
-                <button onClick={() => copyToClipboard(result.macNormalised)} className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors">
-                  <Copy className="w-3.5 h-3.5" />
-                </button>
+                <h2 className="text-sm font-semibold text-foreground">Resultados</h2>
               </div>
 
-              {/* EUI-64 */}
-              <ResultCard
-                icon={Fingerprint}
-                label="Identificador EUI-64"
-                value={result.eui64}
-              />
+              <div className="bg-card border border-border rounded-xl p-3 space-y-2">
+                <ResultRow
+                  icon={Fingerprint}
+                  label="MAC normalizado"
+                  value={result.macNormalised}
+                />
+                <ResultRow
+                  icon={Fingerprint}
+                  label="Identificador EUI-64"
+                  value={result.eui64}
+                  highlight
+                />
+                <ResultRow
+                  icon={Globe}
+                  label="Endereço SLAAC"
+                  value={result.slaacAddress}
+                  fullValue={result.slaacAddressFull}
+                  highlight
+                />
+                <ResultRow
+                  icon={Link2}
+                  label="Endereço Link-Local"
+                  value={result.linkLocal}
+                  fullValue={result.linkLocalFull}
+                />
+              </div>
 
-              {/* SLAAC Address */}
-              <ResultCard
-                icon={Globe}
-                label="Endereço SLAAC"
-                value={result.slaacAddress}
-                fullValue={result.slaacAddressFull}
-              />
-
-              {/* Link-local */}
-              <ResultCard
-                icon={Link2}
-                label="Endereço Link-Local"
-                value={result.linkLocal}
-                fullValue={result.linkLocalFull}
-              />
-
-              {/* Info box */}
-              <motion.div
-                className="bg-primary/5 border border-primary/20 rounded-xl p-4 text-xs text-muted-foreground space-y-1.5"
-                {...fadeUp}
-              >
-                <p className="font-medium text-foreground/80 flex items-center gap-1.5">
-                  <Info className="w-3.5 h-3.5 text-primary" /> Como funciona
-                </p>
-                <ol className="list-decimal list-inside space-y-0.5 ml-1">
-                  <li>O MAC de 48 bits é dividido em duas metades</li>
-                  <li>Os bytes <span className="font-mono text-primary">FF:FE</span> são inseridos no meio</li>
-                  <li>O 7º bit (U/L) do primeiro byte é invertido</li>
-                  <li>O resultado é combinado com o prefixo /64 para formar o endereço SLAAC</li>
-                  <li>O mesmo identificador com prefixo <span className="font-mono text-primary">fe80::</span> gera o link-local</li>
-                </ol>
-              </motion.div>
+              {/* Process explanation — collapsible */}
+              <details className="group bg-primary/5 border border-primary/15 rounded-xl">
+                <summary className="px-4 py-3 cursor-pointer flex items-center gap-2 text-xs font-medium text-foreground/80 select-none">
+                  <Info className="w-3.5 h-3.5 text-primary" />
+                  Como funciona o cálculo EUI-64
+                </summary>
+                <div className="px-4 pb-3 text-xs text-muted-foreground space-y-1">
+                  <ol className="list-decimal list-inside space-y-0.5 ml-1">
+                    <li>O MAC de 48 bits é dividido em duas metades</li>
+                    <li>Os bytes <span className="font-mono text-primary">FF:FE</span> são inseridos no meio → 64 bits</li>
+                    <li>O 7º bit (U/L) do primeiro byte é invertido</li>
+                    <li>O resultado é combinado com o prefixo /64 para formar o endereço SLAAC</li>
+                    <li>O mesmo identificador com prefixo <span className="font-mono text-primary">fe80::</span> gera o link-local</li>
+                  </ol>
+                </div>
+              </details>
             </motion.div>
           )}
         </AnimatePresence>
