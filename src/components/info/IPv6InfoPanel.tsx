@@ -306,12 +306,12 @@ function RDAPInfoCard({ rdapInfo }: { rdapInfo: NonNullable<IPv6LookupResult['rd
         )}
         {rdapInfo.status && rdapInfo.status.length > 0 && (
           <div className="flex items-start gap-1.5">
-            <CheckCircle className="w-3 h-3 text-muted-foreground mt-0.5 shrink-0" />
+            <CheckCircle className="w-3.5 h-3.5 text-muted-foreground mt-0.5 shrink-0" />
             <div>
-              <span className="text-[10px] text-muted-foreground block">Status</span>
+              <span className="text-xs text-muted-foreground block">Status</span>
               <div className="flex flex-wrap gap-1 mt-0.5">
                 {rdapInfo.status.map((s, i) => (
-                  <Badge key={i} variant="outline" className="text-[9px] px-1.5 py-0">
+                  <Badge key={i} variant="outline" className="text-[10px] px-1.5 py-0">
                     {s}
                   </Badge>
                 ))}
