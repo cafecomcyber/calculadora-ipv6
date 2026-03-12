@@ -64,6 +64,11 @@ export function IPv6InfoPanel({ open, onOpenChange, ipv6Address }: IPv6InfoPanel
             <code className="text-xs font-mono text-primary break-all">{ipv6Address}</code>
           </div>
 
+          {/* Block Validation */}
+          {result?.validation && (
+            <BlockValidationCard validation={result.validation} />
+          )}
+
           {/* Type Classification - always shown */}
           <TypeClassificationCard typeInfo={typeInfo} />
 
