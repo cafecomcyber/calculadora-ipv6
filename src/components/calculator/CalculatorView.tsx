@@ -433,7 +433,7 @@ export function CalculatorView() {
                           <div className="space-y-2">
                             <InfoRow label="CIDR" value={ctx.aggregationResult.aggregatedBlock!.subnet} onCopy={() => copyToClipboard(ctx.aggregationResult!.aggregatedBlock!.subnet)} />
                             <InfoRow label="Rede" value={ctx.aggregationResult.aggregatedBlock!.network} onCopy={() => copyToClipboard(ctx.aggregationResult!.aggregatedBlock!.network)} />
-                            <p className="text-xs text-muted-foreground">
+                            <p className="text-sm text-muted-foreground">
                               {ctx.aggregationResult.aggregatedBlock!.blockCount} blocos originais
                             </p>
                           </div>
