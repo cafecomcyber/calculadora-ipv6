@@ -222,7 +222,7 @@ export function PlannerView() {
                   value={level.prefix}
                   onChange={e => updateLevel(i, 'prefix', e.target.value)}
                   placeholder="48"
-                  className="bg-secondary/60 w-20 font-mono text-center h-9 text-sm"
+                  className="bg-secondary/60 w-20 font-mono text-center h-8 text-xs"
                   min={1}
                   max={128}
                 />
