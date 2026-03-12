@@ -175,7 +175,7 @@ export function PlannerView() {
       <div className="bg-card rounded-xl border border-border overflow-hidden">
         {/* Presets */}
         <div className="p-4 md:p-5 border-b border-border/60">
-          <label className="block text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-2.5">Presets</label>
+          <label className="block text-[11px] font-medium uppercase tracking-wider text-muted-foreground mb-2">Presets</label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {[
               { key: 'isp' as const, icon: Globe, label: 'ISP' },
