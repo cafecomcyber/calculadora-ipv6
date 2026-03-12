@@ -275,6 +275,33 @@ export function CalculatorProvider({ children }: { children: React.ReactNode }) 
     aggregatedIpOffsetRef.current = 0;
   }, []);
 
+  const goBackToStep = useCallback((step: number) => {
+    setState(s => {
+      if (step >= s.currentStep) return s;
+      if (step === 1) return s; // use resetCalculadora instead
+      if (step === 2) {
+        return {
+          ...s,
+          currentStep: 2,
+          subRedesGeradas: [],
+          selectedSubnetPrefix: null,
+          selectedBlock: null,
+          selectedIndices: new Set<number>(),
+          individualSelectedIndex: null,
+          displayedCount: 0,
+          aggregationResult: null,
+          comparisonResult: null,
+          subnetIps: [],
+          subnetIpsVisible: false,
+          subnetIpsBlock: null,
+          aggregatedIps: [],
+          aggregatedIpsVisible: false,
+        };
+      }
+      return s;
+    });
+  }, []);
+
   const loadMore = useCallback(() => {
     setState(s => ({
       ...s,
