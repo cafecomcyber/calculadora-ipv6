@@ -241,21 +241,21 @@ function TypeClassificationCard({ typeInfo }: { typeInfo: IPv6TypeInfo }) {
 
   return (
     <div className="bg-card rounded-xl border border-border overflow-hidden">
-      <div className="px-3 py-2 border-b border-border/60">
-        <h3 className="text-[11px] font-medium flex items-center gap-1.5">
-          <Globe className="w-3 h-3 text-primary" /> Classificação
+      <div className="px-3.5 py-2.5 border-b border-border/60">
+        <h3 className="text-sm font-medium flex items-center gap-1.5">
+          <Globe className="w-4 h-4 text-primary" /> Classificação
         </h3>
       </div>
-      <div className="p-3 space-y-2.5">
+      <div className="p-3.5 space-y-3">
         <div className="flex items-center gap-2">
-          <Badge variant="outline" className={cn('text-[10px] px-2 py-0.5', badgeColor)}>
+          <Badge variant="outline" className={cn('text-xs px-2.5 py-0.5', badgeColor)}>
             {typeInfo.type}
           </Badge>
-          <Badge variant="outline" className="text-[10px] px-2 py-0.5">
+          <Badge variant="outline" className="text-xs px-2.5 py-0.5">
             {typeInfo.rfc}
           </Badge>
         </div>
-        <p className="text-[11px] text-muted-foreground leading-relaxed">{typeInfo.description}</p>
+        <p className="text-sm text-muted-foreground leading-relaxed">{typeInfo.description}</p>
         <div className="grid grid-cols-2 gap-2">
           <InfoRow icon={MapPin} label="Escopo" value={typeInfo.scope} />
           <InfoRow
