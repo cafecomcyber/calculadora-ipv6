@@ -465,6 +465,7 @@ export function CalculatorProvider({ children }: { children: React.ReactNode }) 
     calcularSubRedes,
     selecionarPrefixo,
     resetCalculadora,
+    goBackToStep,
     loadMore,
     toggleSelectAll,
     toggleSelect,
