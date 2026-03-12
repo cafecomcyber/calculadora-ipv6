@@ -324,27 +324,27 @@ export function PlannerView() {
                 {results.map((level, i) => (
                   <div key={`tree-${level.prefix}-${i}`}>
                     {/* Connector */}
-                    <div className="flex items-center gap-2 pl-3 py-0.5">
+                    <div className="flex items-center gap-2 pl-3 py-1">
                       <div className="w-px h-5 bg-border ml-3" />
-                      <span className="text-[10px] text-muted-foreground bg-secondary/60 px-1.5 py-0.5 rounded-full">
+                      <span className="text-xs text-muted-foreground bg-secondary/60 px-2 py-0.5 rounded-full">
                         +{level.bitsAtLevel} bit{level.bitsAtLevel !== 1 ? 's' : ''} → {formatBigInt(level.childrenPerParent)}×
                       </span>
                     </div>
                     {/* Node */}
-                     <div className="flex items-center gap-2.5 p-2.5 rounded-lg bg-secondary/50">
-                       <div className="w-6 h-6 rounded-md bg-primary text-primary-foreground flex items-center justify-center text-[10px] font-bold shrink-0">
+                     <div className="flex items-center gap-3 p-3 rounded-lg bg-secondary/50">
+                       <div className="w-7 h-7 rounded-md bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold shrink-0">
                          {i + 1}
                        </div>
                        <div className="flex-1 min-w-0">
-                         <div className="text-xs font-medium flex items-center gap-2">
-                           {level.label} <span className="text-[11px] bg-primary/15 text-primary px-1.5 py-0.5 rounded font-mono">/{level.prefix}</span>
+                         <div className="text-sm font-medium flex items-center gap-2">
+                           {level.label} <span className="text-xs bg-primary/15 text-primary px-1.5 py-0.5 rounded font-mono">/{level.prefix}</span>
                          </div>
-                         <div className="text-[10px] text-muted-foreground">
+                         <div className="text-xs text-muted-foreground">
                            {formatBigInt(level.totalBlocks)} blocos · {formatBigInt(level.hostsPerBlock)} end./bloco
                          </div>
                        </div>
-                       <Button size="sm" variant="outline" className="shrink-0 gap-1 text-[11px] h-6 px-2" onClick={() => openBlocksModal(i)}>
-                         <TableIcon className="w-3 h-3" /> Ver blocos
+                       <Button size="sm" variant="outline" className="shrink-0 gap-1.5 text-xs h-8 px-3" onClick={() => openBlocksModal(i)}>
+                         <TableIcon className="w-3.5 h-3.5" /> Ver blocos
                        </Button>
                      </div>
                   </div>
