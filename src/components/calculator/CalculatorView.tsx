@@ -293,10 +293,10 @@ export function CalculatorView() {
 
                 {/* Table */}
                 <div className="overflow-x-auto max-h-[480px] overflow-y-auto">
-                  <table className="w-full text-xs">
+                  <table className="w-full text-sm">
                     <thead className="sticky top-0 bg-secondary/80 backdrop-blur-sm z-10">
                       <tr>
-                        <th className="p-2.5 w-10">
+                        <th className="p-3 w-10">
                           <input
                             type="checkbox"
                             checked={ctx.selectedIndices.size === ctx.subRedesGeradas.length && ctx.subRedesGeradas.length > 0}
@@ -304,10 +304,10 @@ export function CalculatorView() {
                             className="rounded"
                           />
                         </th>
-                         <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[11px]">Sub-rede</th>
-                         <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[11px]">Inicial</th>
-                         <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[11px]">Final</th>
-                         <th className="p-2.5 text-left font-medium text-muted-foreground uppercase tracking-wider text-[11px]">Rede</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground uppercase tracking-wider text-xs">Sub-rede</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground uppercase tracking-wider text-xs">Inicial</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground uppercase tracking-wider text-xs">Final</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground uppercase tracking-wider text-xs">Rede</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-border/30">
