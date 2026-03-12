@@ -308,22 +308,22 @@ export function PlannerView() {
                       </span>
                     </div>
                     {/* Node */}
-                    <div className="flex items-center gap-3 p-3 rounded-lg bg-secondary/50">
-                      <div className="w-7 h-7 rounded-lg bg-primary text-primary-foreground flex items-center justify-center text-[11px] font-bold shrink-0">
-                        {i + 1}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium flex items-center gap-2">
-                          {level.label} <span className="text-[11px] bg-primary/15 text-primary px-1.5 py-0.5 rounded font-mono">/{level.prefix}</span>
-                        </div>
-                        <div className="text-[11px] text-muted-foreground">
-                          {formatBigInt(level.totalBlocks)} blocos · {formatBigInt(level.hostsPerBlock)} end./bloco
-                        </div>
-                      </div>
-                      <Button size="sm" variant="outline" className="shrink-0 gap-1 text-xs h-7" onClick={() => openBlocksModal(i)}>
-                        <TableIcon className="w-3 h-3" /> Ver blocos
-                      </Button>
-                    </div>
+                     <div className="flex items-center gap-2.5 p-2.5 rounded-lg bg-secondary/50">
+                       <div className="w-6 h-6 rounded-md bg-primary text-primary-foreground flex items-center justify-center text-[10px] font-bold shrink-0">
+                         {i + 1}
+                       </div>
+                       <div className="flex-1 min-w-0">
+                         <div className="text-xs font-medium flex items-center gap-2">
+                           {level.label} <span className="text-[11px] bg-primary/15 text-primary px-1.5 py-0.5 rounded font-mono">/{level.prefix}</span>
+                         </div>
+                         <div className="text-[10px] text-muted-foreground">
+                           {formatBigInt(level.totalBlocks)} blocos · {formatBigInt(level.hostsPerBlock)} end./bloco
+                         </div>
+                       </div>
+                       <Button size="sm" variant="outline" className="shrink-0 gap-1 text-[11px] h-6 px-2" onClick={() => openBlocksModal(i)}>
+                         <TableIcon className="w-3 h-3" /> Ver blocos
+                       </Button>
+                     </div>
                   </div>
                 ))}
               </div>
