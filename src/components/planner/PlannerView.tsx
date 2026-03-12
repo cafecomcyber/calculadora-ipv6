@@ -215,12 +215,12 @@ export function PlannerView() {
 
         {/* Base block */}
         <div className="p-4 md:p-5 border-b border-border/60">
-          <label className="block text-[11px] font-medium uppercase tracking-wider text-muted-foreground mb-2">Bloco Base</label>
+          <label className="block text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2.5">Bloco Base</label>
           <Input
             value={baseBlock}
             onChange={e => setBaseBlock(e.target.value)}
             placeholder="Ex.: 2001:db8::/32"
-            className="font-mono text-xs bg-secondary/60 h-9"
+            className="font-mono text-sm bg-secondary/60 h-11"
           />
         </div>
 
