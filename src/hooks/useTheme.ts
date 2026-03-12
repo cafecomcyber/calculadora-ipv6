@@ -22,7 +22,9 @@ export function useTheme() {
     } else {
       root.classList.remove('dark');
     }
-    try { localStorage.setItem(STORAGE_KEY, theme); } catch {}
+    try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) {
+      console.warn('Não foi possível salvar o tema:', e);
+    }
   }, [theme]);
 
   const toggleTheme = useCallback(() => {
