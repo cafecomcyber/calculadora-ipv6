@@ -64,7 +64,7 @@ export function AppSidebar() {
               <>
                 <div className="overflow-hidden flex-1 min-w-0">
                   <h1 className="text-sm font-semibold text-sidebar-foreground truncate">Calculadora IPv6</h1>
-                  <p className="text-xs text-muted-foreground truncate leading-tight">Criador: Carlos Viana v 1.0</p>
+                  <p className="text-xs text-muted-foreground truncate leading-tight">Carlos Viana v 1.0</p>
                 </div>
                 <button
                   onClick={toggleSidebar}
