@@ -55,10 +55,15 @@ export function AppSidebar() {
               title={collapsed ? 'Expandir menu' : undefined}
             >
               {collapsed ? (
-                <PanelLeft className="w-4 h-4 text-primary" />
-              ) : (
-                <Globe className="w-4 h-4 text-primary" />
-              )}
+                  <PanelLeft className="w-4 h-4 text-primary" />
+                        ) : (
+                          <img 
+                            src="https://cafecomcyber.com.br/lovable-uploads/icone-home.png" 
+                            alt="Café com Cyber" 
+                            className="w-5 h-5 object-contain"
+                         />
+                     )}
+  
             </button>
             {!collapsed && (
               <>
