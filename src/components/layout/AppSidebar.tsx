@@ -50,11 +50,15 @@ export function AppSidebar() {
             <button
               onClick={collapsed ? toggleSidebar : undefined}
               className={cn(
-                "w-8 h-8 rounded-md bg-primary/20 flex items-center justify-center shrink-0 transition-all duration-200",
-                !collapsed && "hover:bg-primary/30"
+                "w-8 h-8 rounded-md flex items-center justify-center shrink-0 transition-all duration-200",
+                !collapsed && "hover:bg-primary/10"
               )}
             >
-              <Network className="w-5 h-5 text-primary" />
+              <img 
+                src="https://www.cafecomcyber.com.br/lovable-uploads/icone-home.png" 
+                alt="Cafe com Cyber" 
+                className="w-6 h-6 object-contain"
+              />
             </button>
             {!collapsed && (
               <>
