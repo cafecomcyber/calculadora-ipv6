@@ -86,7 +86,7 @@ export function AppSidebar() {
                       <SidebarMenuButton
                         onClick={() => {
                           if (item.external) {
-                            window.open(item.path, '_blank', 'noopener,noreferrer');
+                            window.location.href = item.path;
                             return;
                           }
                           navigate(item.path);
