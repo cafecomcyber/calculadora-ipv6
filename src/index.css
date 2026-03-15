@@ -104,7 +104,17 @@
     --sidebar-border: 0 0% 90%;
     --sidebar-ring: 214 78% 55%;
 
+    --cyber-blue: 214 78% 55%;
+    --cyber-blue-muted: 214 60% 45%;
+    --cyber-dark: 0 0% 8%;
+    --cyber-darker: 0 0% 5%;
+    --cyber-gray: 0 0% 15%;
+    --cyber-light: 0 0% 95%;
+
+    --gradient-cyber: linear-gradient(135deg, hsl(214 78% 55% / 0.1), hsl(214 60% 45% / 0.2));
     --gradient-dark: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 98%));
+    --gradient-glow: linear-gradient(90deg, transparent, hsl(214 78% 55% / 0.3), transparent);
+
     --shadow-cyber: 0 0 20px hsl(214 78% 55% / 0.2);
     --shadow-soft: 0 4px 20px hsl(0 0% 0% / 0.1);
     --shadow-glow: 0 0 40px hsl(214 78% 55% / 0.15);
@@ -127,20 +137,18 @@
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: hsl(215 25% 25% / 0.4); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: hsl(214 78% 55%); }
+::-webkit-scrollbar-thumb:hover { background: hsl(210 100% 50%); }
 .light ::-webkit-scrollbar-thumb { background: hsl(0 0% 70%); }
 
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
   20%, 40%, 60%, 80% { transform: translateX(3px); }
 }
-
 .animate-fadeInUp { animation: fadeInUp 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
 .animate-shake { animation: shake 0.4s ease-in-out; }
 
