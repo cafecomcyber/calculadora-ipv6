@@ -6,24 +6,27 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
         <AppSidebar />
-        <main className="flex-1 overflow-y-auto min-w-0 bg-cyber-grid pb-14">
-          {children}
-        </main>
-      </div>
 
-      <footer className="fixed bottom-0 left-0 right-0 z-50 border-t border-border/60 bg-background/85 backdrop-blur-sm">
-        <div className="px-4 py-2 text-center text-xs text-muted-foreground">
-          © Fork do projeto original{' '}
-          <a
-            href="https://github.com/CarHen17/ipv6-helper"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary hover:underline"
-          >
-            ipv6-helper
-          </a>
+        <div className="flex-1 min-w-0 flex flex-col">
+          <main className="flex-1 overflow-y-auto min-w-0 bg-cyber-grid">
+            {children}
+          </main>
+
+          <footer className="sticky bottom-0 z-40 border-t border-border/60 bg-background/85 backdrop-blur-sm">
+            <div className="px-4 py-2 text-center text-xs text-muted-foreground">
+              © 2001-2026 by Zabbix LLC. All rights reserved. • Fork do projeto original{' '}
+              <a
+                href="https://github.com/CarHen17/ipv6-helper"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                ipv6-helper
+              </a>
+            </div>
+          </footer>
         </div>
-      </footer>
+      </div>
     </SidebarProvider>
   );
 }
