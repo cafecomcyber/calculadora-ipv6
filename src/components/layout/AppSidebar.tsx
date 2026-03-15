@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Calculator, Network, Clock, RotateCcw, Sun, Moon, PanelLeftClose, PanelLeft, Info, Cpu, ShieldCheck } from 'lucide-react';
+import { Calculator, Network, Clock, RotateCcw, Sun, Moon, PanelLeftClose, PanelLeft, Info, Cpu, ShieldCheck, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useCalculator } from '@/hooks/useCalculatorState';
 import { useTheme } from '@/hooks/useTheme';
@@ -25,6 +25,7 @@ const navItems = [
   { path: '/eui64', label: 'EUI-64 / SLAAC', icon: Cpu },
   { path: '/overlap', label: 'Sobreposição', icon: ShieldCheck },
   { path: '/history', label: 'Histórico', icon: Clock },
+  { path: 'https://www.cafecomcyber.com.br', label: 'Voltar para o Site', icon: ExternalLink, external: true },
 ];
 
 export function AppSidebar() {
@@ -50,15 +51,10 @@ export function AppSidebar() {
               onClick={collapsed ? toggleSidebar : undefined}
               className={cn(
                 "w-8 h-8 rounded-md bg-primary/20 flex items-center justify-center shrink-0 transition-all duration-200",
-                collapsed && "hover:bg-primary/30 cursor-pointer hover:scale-105"
+                !collapsed && "hover:bg-primary/30"
               )}
-              title={collapsed ? 'Expandir menu' : undefined}
             >
-              <img 
-                src="https://cafecomcyber.com.br/lovable-uploads/icone-home.png" 
-                alt="Café com Cyber" 
-                className="w-5 h-5 object-contain"
-              />
+              <Network className="w-5 h-5 text-primary" />
             </button>
             {!collapsed && (
               <>
@@ -74,7 +70,7 @@ export function AppSidebar() {
                   <PanelLeftClose className="w-4 h-4" />
                 </button>
               </>
-             )}
+            )}
           </div>
         </SidebarHeader>
 
@@ -84,11 +80,17 @@ export function AppSidebar() {
             <SidebarGroupContent>
               <SidebarMenu>
                 {navItems.map(item => {
-                  const isActive = location.pathname === item.path;
+                  const isActive = !item.external && location.pathname === item.path;
                   return (
                     <SidebarMenuItem key={item.path}>
                       <SidebarMenuButton
-                        onClick={() => navigate(item.path)}
+                        onClick={() => {
+                          if (item.external) {
+                            window.open(item.path, '_blank', 'noopener,noreferrer');
+                            return;
+                          }
+                          navigate(item.path);
+                        }}
                         isActive={isActive}
                         tooltip={item.label}
                         className={cn(
@@ -114,31 +116,44 @@ export function AppSidebar() {
                 <SidebarMenuButton
                   onClick={() => setInfoPanelOpen(true)}
                   tooltip="Info do bloco"
-                  className="text-primary hover:bg-primary/10 transition-all duration-200 text-sm"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   <Info className="w-4 h-4" />
-                  <span>Info do Bloco</span>
+                  <span>Informações do Bloco</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             )}
+
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                onClick={resetCalculadora}
+                tooltip="Limpar tudo"
+                className="text-muted-foreground hover:text-destructive transition-colors"
+              >
+                <RotateCcw className="w-4 h-4" />
+                <span>Resetar Calculadora</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+
             <SidebarMenuItem>
               <SidebarMenuButton
                 onClick={toggleTheme}
-                tooltip={theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
-                className="text-muted-foreground hover:text-foreground transition-all duration-200 text-sm"
+                tooltip={theme === 'dark' ? "Modo Claro" : "Modo Escuro"}
+                className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                 <span>{theme === 'dark' ? 'Modo Claro' : 'Modo Escuro'}</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
+
             <SidebarMenuItem>
               <SidebarMenuButton
-                onClick={resetCalculadora}
-                tooltip="Limpar"
-                className="text-destructive hover:bg-destructive/10 transition-all duration-200 text-sm"
+                onClick={toggleSidebar}
+                tooltip={collapsed ? "Expandir" : "Recolher"}
+                className="text-muted-foreground hover:text-foreground transition-colors"
               >
-                <RotateCcw className="w-4 h-4" />
-                <span>Limpar</span>
+                {collapsed ? <PanelLeft className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
+                <span>Recolher Menu</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -148,7 +163,7 @@ export function AppSidebar() {
       <IPv6InfoPanel
         open={infoPanelOpen}
         onOpenChange={setInfoPanelOpen}
-        ipv6Address={infoAddress}
+        address={infoAddress}
       />
     </>
   );
