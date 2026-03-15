@@ -14,7 +14,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
           <footer className="sticky bottom-0 z-40 border-t border-border/60 bg-background/85 backdrop-blur-sm">
             <div className="px-4 py-2 text-center text-xs text-muted-foreground">
-              © All rights reserved to Carlos Viana • Fork do projeto original{' '}
+              © Todos os direitos reservados a Carlos Viana • Fork do projeto original{' '}
               <a
                 href="https://github.com/CarHen17/ipv6-helper"
                 target="_blank"
