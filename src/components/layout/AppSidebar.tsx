@@ -46,17 +46,17 @@ export function AppSidebar() {
     <>
       <Sidebar collapsible="icon">
         <SidebarHeader className="border-b border-sidebar-border">
-          <div className={cn("flex items-center gap-2.5 py-2", collapsed ? "justify-center px-0" : "px-2")}>
+          <div className={cn('flex items-center gap-2.5 py-2', collapsed ? 'justify-center px-0' : 'px-2')}>
             <button
               onClick={collapsed ? toggleSidebar : undefined}
               className={cn(
-                "w-8 h-8 rounded-md flex items-center justify-center shrink-0 transition-all duration-200",
-                !collapsed && "hover:bg-primary/10"
+                'w-8 h-8 rounded-md flex items-center justify-center shrink-0 transition-all duration-200',
+                !collapsed && 'hover:bg-primary/10'
               )}
             >
-              <img 
-                src="https://www.cafecomcyber.com.br/lovable-uploads/icone-home.png" 
-                alt="Cafe com Cyber" 
+              <img
+                src="https://www.cafecomcyber.com.br/lovable-uploads/icone-home.png"
+                alt="Cafe com Cyber"
                 className="w-6 h-6 object-contain"
               />
             </button>
@@ -98,8 +98,8 @@ export function AppSidebar() {
                         isActive={isActive}
                         tooltip={item.label}
                         className={cn(
-                          "transition-all duration-200 text-sm",
-                          isActive && "bg-sidebar-primary text-sidebar-primary-foreground shadow-sm shadow-primary/20"
+                          'transition-all duration-200 text-sm',
+                          isActive && 'bg-sidebar-primary text-sidebar-primary-foreground shadow-sm shadow-primary/20'
                         )}
                       >
                         <item.icon className="w-4 h-4" />
@@ -142,7 +142,7 @@ export function AppSidebar() {
             <SidebarMenuItem>
               <SidebarMenuButton
                 onClick={toggleTheme}
-                tooltip={theme === 'dark' ? "Modo Claro" : "Modo Escuro"}
+                tooltip={theme === 'dark' ? 'Modo Claro' : 'Modo Escuro'}
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
@@ -153,7 +153,7 @@ export function AppSidebar() {
             <SidebarMenuItem>
               <SidebarMenuButton
                 onClick={toggleSidebar}
-                tooltip={collapsed ? "Expandir" : "Recolher"}
+                tooltip={collapsed ? 'Expandir' : 'Recolher'}
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 {collapsed ? <PanelLeft className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
@@ -167,7 +167,7 @@ export function AppSidebar() {
       <IPv6InfoPanel
         open={infoPanelOpen}
         onOpenChange={setInfoPanelOpen}
-        address={infoAddress}
+        ipv6Address={infoAddress}
       />
     </>
   );
