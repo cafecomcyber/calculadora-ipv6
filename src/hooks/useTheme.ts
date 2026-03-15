@@ -17,10 +17,9 @@ export function useTheme() {
 
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
+    root.classList.remove('light');
+    if (theme === 'light') {
+      root.classList.add('light');
     }
     try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) {
       console.warn('Não foi possível salvar o tema:', e);
